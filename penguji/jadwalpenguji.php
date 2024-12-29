@@ -5,7 +5,7 @@ require_once '../layout/top.php';
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Jadwal Sidang</h1>
-        <a href="." class="btn btn-primary">Upload Jadwal Sidang</a>
+        <a href="upload_penguji.php" class="btn btn-primary">Upload Jadwal Sidang</a>
     </div>
     <div class="row">
         <div class="col-12">
@@ -22,7 +22,7 @@ require_once '../layout/top.php';
                                 </div>
                                 <div class="card-body d-flex justify-content-between">
                                     <h4>Nama</h4>
-                                    <a class="btn btn-sm btn-info mr-10" href="">
+                                    <a class="btn btn-sm btn-info mr-10" href="edit_penguji.php">
                                         <i class="fas fa-edit fa-fw"></i>
                                     </a>
                                 </div>
