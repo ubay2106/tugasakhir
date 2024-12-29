@@ -37,7 +37,7 @@ require_once '../layout/top.php';
                       <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="">
                         <i class="fas fa-trash fa-fw"></i>
                       </a>
-                      <a class="btn btn-sm btn-info" href="">
+                      <a class="btn btn-sm btn-info" href="edit_dosen.php">
                         <i class="fas fa-edit fa-fw"></i>
                       </a>
                     </td>
