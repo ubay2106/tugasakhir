@@ -22,7 +22,7 @@
                     <span>Data Mahasiswa</span></a>
             </li>
             <li class="dropdown">
-                <a href="../pembimbing/jadwal.php" class="nav-link" ><i class="fas fa-calendar-plus"></i>
+                <a href="../pembimbing/jadwalpembimbing.php" class="nav-link" ><i class="fas fa-calendar-plus"></i>
                     <span>Jadwal Bimbingan</span></a>
             </li>
             <li class="dropdown">
@@ -34,7 +34,7 @@
                     <span>Nilai</span></a>
             </li>
             <li class="dropdown">
-                <a href="" class="nav-link" ><i class="fas fa-calendar-plus"></i>
+                <a href="../penguji/jadwalpenguji.php" class="nav-link" ><i class="fas fa-calendar-plus"></i>
                     <span>Jadwal Sidang</span></a>
             </li>
             <li class="dropdown">
