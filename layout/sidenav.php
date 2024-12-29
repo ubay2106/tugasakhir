@@ -30,7 +30,7 @@
                     <span>Proposal</span></a>
             </li>
             <li class="dropdown">
-                <a href="" class="nav-link" ><i class="fas fa-graduation-cap"></i>
+                <a href="../pembimbing/nilai_proposal.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
             <li class="dropdown">
@@ -38,7 +38,7 @@
                     <span>Jadwal Sidang</span></a>
             </li>
             <li class="dropdown">
-                <a href="" class="nav-link" ><i class="fas fa-graduation-cap"></i>
+                <a href="../penguji/nilai_sidang.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
             <li class="dropdown">
@@ -46,7 +46,7 @@
                     <span>Tugas Akhir</span></a>
             </li>
             <li class="dropdown">
-                <a href="" class="nav-link" ><i class="fas fa-calendar"></i>
+                <a href="../mahasiswa/jadwal.php" class="nav-link" ><i class="fas fa-calendar"></i>
                     <span>Jadwal Proposal Dan Sidang</span></a>
             </li>
             <li class="dropdown">
@@ -54,7 +54,7 @@
                     <span>Proposal</span></a>
             </li>
             <li class="dropdown">
-                <a href="../mahasiswa/niali.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
+                <a href="../mahasiswa/nilai.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
         </ul>
