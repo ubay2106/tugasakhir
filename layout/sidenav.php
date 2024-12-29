@@ -54,7 +54,7 @@
                     <span>Proposal</span></a>
             </li>
             <li class="dropdown">
-                <a href="" class="nav-link" ><i class="fas fa-graduation-cap"></i>
+                <a href="../mahasiswa/niali.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
         </ul>
