@@ -17,7 +17,7 @@ require_once '../layout/top.php';
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
-                                    <h4>Nilai Proposal</h4>
+                                    <h4>Jadwal Proposal</h4>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@ require_once '../layout/top.php';
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
-                                    <h4>Nilai Sidang</h4>
+                                    <h4>Jadwal Sidang</h4>
                                 </div>
                             </div>
                         </div>
