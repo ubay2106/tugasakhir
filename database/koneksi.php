@@ -14,6 +14,30 @@ function query($query){
     return $rows;
 }
 
+//register
+function register($data){
+    global $conn;
+    $username = htmlspecialchars($data['username']);
+    $nidn = htmlspecialchars($data['nidn']);
+    $nim = htmlspecialchars($data['nim']);
+    $password = htmlspecialchars($data['password']);
+    $role = htmlspecialchars($data['role']);
+
+    $cek = "SELECT *FROM users WHERE nim = '$nim' OR nidn = '$nidn'";
+    $cek1=mysqli_query($conn, $cek);
+
+    if(mysqli_num_rows($cek1) > 0){  
+        return -1;
+    }
+
+    $query = "INSERT INTO dosen (username, nidn, nim, password, role) VALUES
+                    ('$username','$nidn', '$nim', '$password', '$role')";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
 //tambah dosen
 function tambah_dosen($data){
     global $conn;

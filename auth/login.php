@@ -36,20 +36,37 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Login Admin</h4>
+                                <h4>Login</h4>
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="" class="needs-validation" novalidate="">
+                            <form method="POST" action="" class="needs-validation" novalidate="">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="text" class="form-control" name="email"
-                                            tabindex="1" required autofocus>
+                                        <label for="role">Role</label>
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option value="" disabled selected>Pilih role</option>
+                                            <option value="mahasiswa">Mahasiswa</option>
+                                            <option value="pembimbing">Pembimbing</option>
+                                            <option value="penguji">Penguji</option>
+                                            <option value="kaprodi">Kaprodi</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="nidn-group" style="display: none;">
+                                        <label for="nidn">NIDN</label>
+                                        <input id="nidn" type="text" class="form-control" name="nidn"
+                                            tabindex="1">
                                         <div class="invalid-feedback">
-                                            Mohon isi email
+                                            Mohon isi NIDN
                                         </div>
                                     </div>
-
+                                    <div class="form-group" id="nim-group" style="display: none;">
+                                        <label for="nim">NIM</label>
+                                        <input id="nim" type="text" class="form-control" name="nim"
+                                            tabindex="1">
+                                        <div class="invalid-feedback">
+                                            Mohon isi NIM
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="d-block">
                                             <label for="password" class="control-label">Password</label>
@@ -60,17 +77,6 @@
                                             Mohon isi kata sandi
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="gender">Role</label>
-                                        <select class="form-control" id="gender" name="gender" required>
-                                            <option value="" disabled selected>Pilih role</option>
-                                            <option >Kaprodi</option>
-                                            <option >Pembimbing</option>
-                                            <option >Penguji</option>
-                                            <option >Mahasiswa</option>
-                                        </select>
-                                    </div>
-
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" name="remember" class="custom-control-input"
@@ -100,6 +106,22 @@
             </div>
         </section>
     </div>
+
+    <script>
+        const roleSelect = document.getElementById('role');
+        const nidnGroup = document.getElementById('nidn-group');
+        const nimGroup = document.getElementById('nim-group');
+
+        roleSelect.addEventListener('change', function() {
+            if (roleSelect.value === 'mahasiswa') {
+                nimGroup.style.display = 'block';
+                nidnGroup.style.display = 'none';
+            } else {
+                nidnGroup.style.display = 'block';
+                nimGroup.style.display = 'none';
+            }
+        });
+    </script>
 
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
