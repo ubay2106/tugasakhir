@@ -84,7 +84,7 @@
 <?php
 
 if(!isset($_SESSION['role'])){
-  header("Location: ../auth/login.php");
+  header("Location: ../template/index.php");
   exit;
 }
 ?>

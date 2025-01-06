@@ -2,9 +2,9 @@
 
 session_start();
 
-if(isset($_SESSION['role'])){
-  header("Location: ../home/index.php");
-  exit;
+if (isset($_SESSION['role'])) {
+    header('Location: ../home/index.php');
+    exit();
 }
 
 require '../database/koneksi.php';
@@ -68,98 +68,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <!-- <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                        <div class="login-brand">
-                            <img src="../assets/img/avatar/sarjana.png" alt="logo" width="300">
-                        </div>
-
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Register</h4>
-                            </div>
-
-                            <div class="card-body">
-                                <form method="POST" action="" class="needs-validation" novalidate="">
-                                    <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input id="username" type="text" class="form-control" name="username"
-                                            tabindex="1" required autofocus>
-                                        <div class="invalid-feedback">
-                                            Mohon isi username
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nidn">NIDN</label>
-                                        <input id="nidn" type="text" class="form-control" name="nidn"
-                                            tabindex="1" required autofocus>
-                                        <div class="invalid-feedback">
-                                            Mohon isi nidn
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nim">NIM</label>
-                                        <input id="nim" type="text" class="form-control" name="nim"
-                                            tabindex="1" required autofocus>
-                                        <div class="invalid-feedback">
-                                            Mohon isi nim
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
-                                        </div>
-                                        <input id="password" type="password" class="form-control" name="password"
-                                            tabindex="2" required>
-                                        <div class="invalid-feedback">
-                                            Mohon isi kata sandi
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="gender">Role</label>
-                                        <select class="form-control" id="gender" name="gender" required>
-                                            <option value="" disabled selected>Pilih role</option>
-                                            <option>Mahasiswa</option>
-                                            <option>Pembimbing</option>
-                                            <option>Penguji</option>
-                                            <option>Kaprodi</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Ingat Saya</label>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button name="submit" type="submit" class="btn btn-primary btn-lg btn-block"
-                                            tabindex="3">
-                                            Daftar
-                                        </button>
-                                        <a class="btn btn-primary btn-lg btn-block" href="../auth/login.php">
-                                            Login
-                                        </a>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                        <div class="simple-footer">
-                            Copyright &copy; Kelompok Settong
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div> -->
 
     <div id="app">
         <section class="section">
@@ -172,22 +80,13 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="card card-primary">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between">
                                 <h4>Register</h4>
+                                <a class="border-bottom text-align-center" href="../template/index.php">Home</a>
                             </div>
 
                             <div class="card-body">
                                 <form method="POST" action="" class="needs-validation" novalidate="">
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select class="form-control" id="role" name="role" required>
-                                            <option value="" disabled selected>Pilih role</option>
-                                            <option value="Mahasiswa">Mahasiswa</option>
-                                            <option value="Pembimbing">Pembimbing</option>
-                                            <option value="Penguji">Penguji</option>
-                                            <option value="Kaprodi">Kaprodi</option>
-                                        </select>
-                                    </div>
                                     <div class="form-group">
                                         <div class="d-block">
                                             <label for="username" class="control-label">Username</label>
@@ -198,20 +97,12 @@ if (isset($_POST['submit'])) {
                                             Mohon isi Username
                                         </div>
                                     </div>
-                                    <div class="form-group" id="nidn-group" style="display: none;">
+                                    <div class="form-group" id="nidn-group">
                                         <label for="nidn">NIDN</label>
                                         <input id="nidn" type="text" class="form-control" name="nidn"
                                             tabindex="1">
                                         <div class="invalid-feedback">
                                             Mohon isi NIDN
-                                        </div>
-                                    </div>
-                                    <div class="form-group" id="nim-group" style="display: none;">
-                                        <label for="nim">NIM</label>
-                                        <input id="nim" type="text" class="form-control" name="nim"
-                                            tabindex="1">
-                                        <div class="invalid-feedback">
-                                            Mohon isi NIM
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -225,22 +116,20 @@ if (isset($_POST['submit'])) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Ingat Saya</label>
-                                        </div>
-
+                                        <label for="role">Role</label>
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option value="" disabled selected>Pilih role</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Pembimbing">Pembimbing</option>
+                                            <option value="Penguji">Penguji</option>
+                                            <option value="Kaprodi">Kaprodi</option>
+                                        </select>
                                     </div>
-
                                     <div class="form-group">
-                                        <button name="submit" type="submit"
-                                            class="btn btn-primary btn-lg btn-block" tabindex="3">
+                                        <button name="submit" type="submit" class="btn btn-primary btn-lg btn-block"
+                                            tabindex="3">
                                             Daftar
                                         </button>
-                                        <a class="btn btn-primary btn-lg btn-block" href="../auth/login.php">
-                                            Login
-                                        </a>
                                     </div>
                                 </form>
 
@@ -256,24 +145,23 @@ if (isset($_POST['submit'])) {
     </div>
 
     <script>
-    const roleSelect = document.getElementById('role');
-    const nidnGroup = document.getElementById('nidn-group');
-    const nimGroup = document.getElementById('nim-group');
+        const roleSelect = document.getElementById('role');
+        const nidnGroup = document.getElementById('nidn-group');
+        const nimGroup = document.getElementById('nim-group');
 
-    // Menambahkan event listener untuk perubahan pilihan role
-    roleSelect.addEventListener('change', function() {
-        // Jika role yang dipilih adalah Mahasiswa, tampilkan input NIM dan sembunyikan NIDN
-        if (roleSelect.value === 'Mahasiswa') {
-            nimGroup.style.display = 'block';  // Tampilkan NIM
-            nidnGroup.style.display = 'none';  // Sembunyikan NIDN
-        } else {
-            nidnGroup.style.display = 'block';  // Tampilkan NIDN
-            nimGroup.style.display = 'none';   // Sembunyikan NIM
-        }
-    });
-</script>
-
+        // Menambahkan event listener untuk perubahan pilihan role
+        roleSelect.addEventListener('change', function() {
+            // Jika role yang dipilih adalah Mahasiswa, tampilkan input NIM dan sembunyikan NIDN
+            if (roleSelect.value === 'Mahasiswa') {
+                nimGroup.style.display = 'block'; // Tampilkan NIM
+                nidnGroup.style.display = 'none'; // Sembunyikan NIDN
+            } else {
+                nidnGroup.style.display = 'block'; // Tampilkan NIDN
+                nimGroup.style.display = 'none'; // Sembunyikan NIM
+            }
+        });
     </script>
+
 
 
     <!-- General JS Scripts -->

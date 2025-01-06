@@ -1,7 +1,12 @@
 <?php
+session_start();
 require_once '../layout/top.php';
-
 require '../database/koneksi.php';
+
+if(!isset($_SESSION['role'])){
+  header("Location: ../template/index.php");
+  exit;
+}
 
 $mahasiswa = query('SELECT *FROM mahasiswa');
 ?>

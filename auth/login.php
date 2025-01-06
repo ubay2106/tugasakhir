@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 if(isset($_SESSION['role'])){
   header("Location: ../home/index.php");
   exit;
@@ -147,40 +145,20 @@ if (isset($_POST['login'])) {
                         </div>
 
                         <div class="card card-primary">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between">
                                 <h4>Login</h4>
+                                <a class="border-bottom text-align-center" href="../template/index.php">Home</a>
                             </div>
 
                             <div class="card-body">
                                 <form method="POST" action="" class="needs-validation" novalidate="">
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select class="form-control" id="role" name="role" required>
-                                            <option value="" disabled selected>Pilih role</option>
-                                            <option value="Mahasiswa">Mahasiswa</option>
-                                            <option value="Pembimbing">Pembimbing</option>
-                                            <option value="Penguji">Penguji</option>
-                                            <option value="Kaprodi">Kaprodi</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Input NIM/NIDN -->
-                                    <div class="form-group" id="nim-field" style="display: none;">
-                                        <label for="nim">NIM</label>
-                                        <input id="nim" type="text" class="form-control" name="nim">
-                                        <div class="invalid-feedback">
-                                            Mohon isi NIM
-                                        </div>
-                                    </div>
-                                    <div class="form-group" id="nidn-field" style="display: none;">
+                                    <div class="form-group" id="nidn-field">
                                         <label for="nidn">NIDN</label>
                                         <input id="nidn" type="text" class="form-control" name="nidn">
                                         <div class="invalid-feedback">
                                             Mohon isi NIDN
                                         </div>
                                     </div>
-
-                                    <!-- Password -->
                                     <div class="form-group">
                                         <label for="password">Password</label>
                                         <input id="password" type="password" class="form-control" name="password"
@@ -189,7 +167,16 @@ if (isset($_POST['login'])) {
                                             Mohon isi password
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option value="" disabled selected>Pilih role</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Pembimbing">Pembimbing</option>
+                                            <option value="Penguji">Penguji</option>
+                                            <option value="Kaprodi">Kaprodi</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <button name="login" type="submit"
                                             class="btn btn-primary btn-lg btn-block">
@@ -207,25 +194,6 @@ if (isset($_POST['login'])) {
             </div>
         </section>
     </div>
-
-
-    <script>
-        document.getElementById('role').addEventListener('change', function() {
-            const role = this.value;
-            const nimField = document.getElementById('nim-field');
-            const nidnField = document.getElementById('nidn-field');
-
-            if (role === 'Mahasiswa') {
-                nimField.style.display = 'block';
-                nidnField.style.display = 'none';
-                document.getElementById('nidn').value = ''; // Hapus nilai NIDN jika sebelumnya diisi
-            } else {
-                nimField.style.display = 'none';
-                nidnField.style.display = 'block';
-                document.getElementById('nim').value = ''; // Hapus nilai NIM jika sebelumnya diisi
-            }
-        });
-    </script>
 
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"

@@ -1,9 +1,10 @@
 <?php
 if (!isset($_SESSION['role'])) {
-    header('Location: ../auth/login.php');
+    header('Location: ../template/index.php');
     exit();
 }
 
+$nama = $_SESSION['users']['username'] ?? '?';
 ?>
 
 <div class="navbar-bg">
@@ -22,7 +23,7 @@ if (!isset($_SESSION['role'])) {
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi,</div>
+                <div class="d-sm-none d-lg-inline-block">Hi, <?php echo $nama ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <form action="../auth/logout.php" method="POST">

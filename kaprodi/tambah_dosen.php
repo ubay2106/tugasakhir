@@ -1,7 +1,13 @@
 <?php
+session_start();
 require_once '../layout/top.php';
-
 require '../database/koneksi.php';
+
+
+if(!isset($_SESSION['role'])){
+  header("Location: ../template/index.php");
+  exit;
+}
 
 if (isset($_POST['submit'])) {
     if (tambah_dosen($_POST) > 0) {

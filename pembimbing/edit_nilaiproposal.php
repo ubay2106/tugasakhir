@@ -1,6 +1,12 @@
 <?php
+session_start();
 require_once '../layout/top.php';
 
+
+if(!isset($_SESSION['role'])){
+  header("Location: ../template/index.php");
+  exit;
+}
 ?>
 <section class="section">
     <div class="section-header">

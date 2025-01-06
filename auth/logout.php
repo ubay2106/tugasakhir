@@ -1,13 +1,10 @@
 <?php
-session_start();  // Memulai session
+session_start();
 
-// Menghapus semua data session
 session_unset(); 
 
-// Menghancurkan session
 session_destroy(); 
 
-// Redirect ke halaman login setelah logout
-header("Location: login.php");
-exit;  // Pastikan tidak ada kode yang dieksekusi setelah redirect
+header("Location: ../template/index.php");
+exit;
 ?>
