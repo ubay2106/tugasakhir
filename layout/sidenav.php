@@ -1,3 +1,6 @@
+<?php
+$role = $_SESSION['role'] ?? 'guest';
+?>
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
@@ -8,6 +11,7 @@
         <ul class="sidebar-menu mt-3">
             <li class="menu-header">Dashboard</li>
             <li><a class="nav-link" href="../home/index.php"><i class="fas fa-fire"></i> <span>Home</span></a></li>
+            <?php if ($role === 'kaprodi'): ?>
             <li class="menu-header">Main Feature</li>
             <li class="dropdown">
                 <a href="../kaprodi/akun.php" class="nav-link" ><i class="fas fa-bars"></i>
@@ -21,6 +25,7 @@
                 <a href="../kaprodi/mahasiswa.php" class="nav-link" ><i class="fas fa-user-graduate"></i>
                     <span>Data Mahasiswa</span></a>
             </li>
+            <?php elseif ($role === 'pembimbing'): ?>
             <li class="dropdown">
                 <a href="../pembimbing/jadwalpembimbing.php" class="nav-link" ><i class="fas fa-calendar-plus"></i>
                     <span>Jadwal Bimbingan</span></a>
@@ -33,6 +38,7 @@
                 <a href="../pembimbing/nilai_proposal.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
+            <?php elseif ($role === 'penguji'): ?>
             <li class="dropdown">
                 <a href="../penguji/jadwalpenguji.php" class="nav-link" ><i class="fas fa-calendar-plus"></i>
                     <span>Jadwal Sidang</span></a>
@@ -41,6 +47,7 @@
                 <a href="../penguji/nilai_sidang.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
+            <?php elseif ($role === 'mahasiswa'): ?>
             <li class="dropdown">
                 <a href="../mahasiswa/mahasiswa.php" class="nav-link" ><i class="fas fa-chalkboard"></i>
                     <span>Tugas Akhir</span></a>
@@ -57,6 +64,7 @@
                 <a href="../mahasiswa/nilai.php" class="nav-link" ><i class="fas fa-graduation-cap"></i>
                     <span>Nilai</span></a>
             </li>
+            <?php endif; ?>
         </ul>
     </aside>
 </div>
