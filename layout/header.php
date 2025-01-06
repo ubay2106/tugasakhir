@@ -4,6 +4,7 @@ if (!isset($_SESSION['username'])) {
     header('Location: ../auth/login.php');
     exit();
 }
+
 ?>
 
 <div class="navbar-bg">

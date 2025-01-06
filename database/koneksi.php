@@ -55,7 +55,6 @@ function register($data){
 }
 
 //login
-
 function login($data) {
     global $conn;
 
@@ -100,8 +99,6 @@ function login($data) {
     // NIM/NIDN tidak ditemukan
     return false;
 }
-
-
 
 
 //tambah dosen

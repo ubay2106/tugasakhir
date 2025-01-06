@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if(isset($_SESSION['username'])){
+  header("Location: ../home/index.php");
+  exit;
+}
+
 require '../database/koneksi.php';
 
 if (isset($_POST['login'])) {
