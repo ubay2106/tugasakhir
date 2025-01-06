@@ -248,19 +248,23 @@ if (isset($_POST['submit'])) {
     </div>
 
     <script>
-        const roleSelect = document.getElementById('role');
-        const nidnGroup = document.getElementById('nidn-group');
-        const nimGroup = document.getElementById('nim-group');
+    const roleSelect = document.getElementById('role');
+    const nidnGroup = document.getElementById('nidn-group');
+    const nimGroup = document.getElementById('nim-group');
 
-        roleSelect.addEventListener('change', function() {
-            if (roleSelect.value === 'mahasiswa') {
-                nimGroup.style.display = 'block';
-                nidnGroup.style.display = 'none';
-            } else {
-                nidnGroup.style.display = 'block';
-                nimGroup.style.display = 'none';
-            }
-        });
+    // Menambahkan event listener untuk perubahan pilihan role
+    roleSelect.addEventListener('change', function() {
+        // Jika role yang dipilih adalah Mahasiswa, tampilkan input NIM dan sembunyikan NIDN
+        if (roleSelect.value === 'Mahasiswa') {
+            nimGroup.style.display = 'block';  // Tampilkan NIM
+            nidnGroup.style.display = 'none';  // Sembunyikan NIDN
+        } else {
+            nidnGroup.style.display = 'block';  // Tampilkan NIDN
+            nimGroup.style.display = 'none';   // Sembunyikan NIM
+        }
+    });
+</script>
+
     </script>
 
 

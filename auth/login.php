@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
         echo "
             <script>
                 alert('Login berhasil!');
-                document.location.href = '../layout/top.php';
+                document.location.href = '../home/index.php';
             </script>
         ";
     } else {
@@ -18,6 +18,7 @@ if (isset($_POST['login'])) {
         ";
     }
 }
+
 
 ?>
 
@@ -206,7 +207,7 @@ if (isset($_POST['login'])) {
             const nimField = document.getElementById('nim-field');
             const nidnField = document.getElementById('nidn-field');
 
-            if (role === 'mahasiswa') {
+            if (role === 'Mahasiswa') {
                 nimField.style.display = 'block';
                 nidnField.style.display = 'none';
                 document.getElementById('nidn').value = ''; // Hapus nilai NIDN jika sebelumnya diisi

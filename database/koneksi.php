@@ -28,7 +28,7 @@ function register($data){
 
     // Validasi apakah NIM atau NIDN sudah terdaftar
     $cek = "SELECT * FROM users WHERE ";
-    if ($role === 'mahasiswa') {
+    if ($role === 'Mahasiswa') {
         $cek .= "nim = '$nim'";
     } else {
         $cek .= "nidn = '$nidn'";
@@ -41,12 +41,12 @@ function register($data){
     }
 
     // Query insert data ke tabel dosen/mahasiswa sesuai role
-    $query = "INSERT INTO users (username, nidn, nim, password, role) VALUES
+    $query = "INSERT INTO users (username, nim, nidn, password, role) VALUES
               ('$username', ";
-    if ($role === 'mahasiswa') {
-        $query .= "NULL, '$nim', '$password', '$role')";
+    if ($role === 'Mahasiswa') {
+        $query .= " '$nim', NULL, '$password', '$role')";
     } else {
-        $query .= "'$nidn', NULL, '$password', '$role')";
+        $query .= "NULL,'$nidn', '$password', '$role')";
     }
 
     mysqli_query($conn, $query);
@@ -55,12 +55,14 @@ function register($data){
 }
 
 //login
+
 function login($data) {
     global $conn;
 
     $role = htmlspecialchars($data['role']);
     $password = htmlspecialchars($data['password']);
 
+    // Cek role untuk menentukan login dengan NIM atau NIDN
     if ($role === 'Mahasiswa') {
         $identifier = htmlspecialchars($data['nim']);
         $query = "SELECT * FROM users WHERE nim = '$identifier' AND role = 'Mahasiswa'";
@@ -76,31 +78,29 @@ function login($data) {
     } else {
         return false; // Role tidak valid
     }
-    
-
-    echo "Query: $query<br>";
 
     $result = mysqli_query($conn, $query);
+
     if (mysqli_num_rows($result) === 1) {
         $user = mysqli_fetch_assoc($result);
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';
 
+        // Verifikasi password
         if (password_verify($password, $user['password'])) {
+            // Password cocok, simpan session
             session_start();
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
             return true;
         } else {
-            echo "Password salah.";
+            // Password salah
             return false;
         }
     }
 
-    echo "NIM/NIDN tidak ditemukan.";
+    // NIM/NIDN tidak ditemukan
     return false;
 }
+
 
 
 
