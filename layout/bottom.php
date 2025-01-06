@@ -1,3 +1,11 @@
+<?php
+
+if(!isset($_SESSION['username'])){
+  header("Location: ../auth/login.php");
+  exit;
+}
+?>
+
 </div>
 <footer class="main-footer">
   <div class="footer-left">

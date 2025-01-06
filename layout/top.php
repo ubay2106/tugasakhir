@@ -81,6 +81,14 @@
 
 <body>
 
+<?php
+
+if(!isset($_SESSION['username'])){
+  header("Location: ../auth/login.php");
+  exit;
+}
+?>
+
     <!-- Preloader -->
     <div id="preloader">
         <img class="animation__shake" src="../assets/img/avatar/sarjana.png" alt="Loading..." sizes="50%">

@@ -1,3 +1,12 @@
+<?php
+
+if(!isset($_SESSION['username'])){
+  header("Location: ../auth/login.php");
+  exit;
+}
+?>
+
+
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
