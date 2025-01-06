@@ -1,4 +1,24 @@
 <?php
+require '../database/koneksi.php';
+
+if (isset($_POST['login'])) {
+    if (login($_POST)) {
+        echo "
+            <script>
+                alert('Login berhasil!');
+                document.location.href = '../layout/top.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+                alert('NIM/NIDN atau password salah!');
+                document.location.href = 'login.php';
+            </script>
+        ";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +44,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <!-- <div id="app">
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
@@ -105,20 +125,95 @@
                 </div>
             </div>
         </section>
+    </div> -->
+
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="login-brand">
+                            <img src="../assets/img/avatar/sarjana.png" alt="logo" width="300">
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Login</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="POST" action="" class="needs-validation" novalidate="">
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option value="" disabled selected>Pilih role</option>
+                                            <option value="Mahasiswa">Mahasiswa</option>
+                                            <option value="Pembimbing">Pembimbing</option>
+                                            <option value="Penguji">Penguji</option>
+                                            <option value="Kaprodi">Kaprodi</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Input NIM/NIDN -->
+                                    <div class="form-group" id="nim-field" style="display: none;">
+                                        <label for="nim">NIM</label>
+                                        <input id="nim" type="text" class="form-control" name="nim">
+                                        <div class="invalid-feedback">
+                                            Mohon isi NIM
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="nidn-field" style="display: none;">
+                                        <label for="nidn">NIDN</label>
+                                        <input id="nidn" type="text" class="form-control" name="nidn">
+                                        <div class="invalid-feedback">
+                                            Mohon isi NIDN
+                                        </div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input id="password" type="password" class="form-control" name="password"
+                                            required>
+                                        <div class="invalid-feedback">
+                                            Mohon isi password
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button name="login" type="submit"
+                                            class="btn btn-primary btn-lg btn-block">
+                                            Login
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="simple-footer">
+                            Copyright &copy; Kelompok Settong
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <script>
-        const roleSelect = document.getElementById('role');
-        const nidnGroup = document.getElementById('nidn-group');
-        const nimGroup = document.getElementById('nim-group');
 
-        roleSelect.addEventListener('change', function() {
-            if (roleSelect.value === 'mahasiswa') {
-                nimGroup.style.display = 'block';
-                nidnGroup.style.display = 'none';
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            const role = this.value;
+            const nimField = document.getElementById('nim-field');
+            const nidnField = document.getElementById('nidn-field');
+
+            if (role === 'mahasiswa') {
+                nimField.style.display = 'block';
+                nidnField.style.display = 'none';
+                document.getElementById('nidn').value = ''; // Hapus nilai NIDN jika sebelumnya diisi
             } else {
-                nidnGroup.style.display = 'block';
-                nimGroup.style.display = 'none';
+                nimField.style.display = 'none';
+                nidnField.style.display = 'block';
+                document.getElementById('nim').value = ''; // Hapus nilai NIM jika sebelumnya diisi
             }
         });
     </script>

@@ -1,5 +1,40 @@
 <?php
 require '../database/koneksi.php';
+
+if (isset($_POST['submit'])) {
+    $result = register($_POST);
+
+    if ($result > 0) {
+        echo "
+            <script>
+                alert('SUKSES');
+                document.location.href = 'login.php';
+            </script>
+        ";
+    } elseif ($result === 'nim_terdaftar') {
+        echo "
+            <script>
+                alert('NIM sudah terdaftar!');
+                document.location.href = 'register.php';
+            </script>
+        ";
+    } elseif ($result === 'nidn_terdaftar') {
+        echo "
+            <script>
+                alert('NIDN sudah terdaftar!');
+                document.location.href = 'register.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+                alert('GAGAL');
+                document.location.href = 'register.php';
+            </script>
+        ";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -139,10 +174,10 @@ require '../database/koneksi.php';
                                         <label for="role">Role</label>
                                         <select class="form-control" id="role" name="role" required>
                                             <option value="" disabled selected>Pilih role</option>
-                                            <option value="mahasiswa">Mahasiswa</option>
-                                            <option value="pembimbing">Pembimbing</option>
-                                            <option value="penguji">Penguji</option>
-                                            <option value="kaprodi">Kaprodi</option>
+                                            <option value="Mahasiswa">Mahasiswa</option>
+                                            <option value="Pembimbing">Pembimbing</option>
+                                            <option value="Penguji">Penguji</option>
+                                            <option value="Kaprodi">Kaprodi</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
