@@ -83,7 +83,7 @@
 
 <?php
 
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['role'])){
   header("Location: ../auth/login.php");
   exit;
 }
