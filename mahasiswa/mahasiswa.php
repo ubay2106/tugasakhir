@@ -4,17 +4,30 @@ require_once '../layout/top.php';
 require '../database/koneksi.php';
 
 if(!isset($_SESSION['role'])){
-  header("Location: ../template/index.php");
-  exit;
+    header("Location: ../template/index.php");
+    exit;
+  }
+
+  if ($_SESSION['role'] === 'Admin') {
+    // Jika admin, ambil semua data mahasiswa
+    $mahasiswa = query("SELECT * FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id");
+} else {
+    // Jika mahasiswa, ambil hanya data mahasiswa sesuai NIM yang login
+    $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
+    $mahasiswa = query("SELECT * FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id WHERE users.nim = '$nim'");
+
+    $cek_tugas_akhir = query("SELECT COUNT(*) AS jumlah FROM mahasiswa WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
+    $tugas_akhir_sudah_ada = ($cek_tugas_akhir[0]['jumlah'] > 0);
 }
 
-$mahasiswa = query('SELECT *FROM mahasiswa');
 ?>
 
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Data Peserta</h1>
+        <?php if ($_SESSION['role'] === 'Admin' || !$tugas_akhir_sudah_ada): ?>
         <a href="../mahasiswa/tambah_mahasiswa.php" class="btn btn-primary">Daftar Tugas Akhir</a>
+        <?php endif; ?>
     </div>
     <div class="row">
         <div class="col-12">
@@ -29,7 +42,7 @@ $mahasiswa = query('SELECT *FROM mahasiswa');
                                     <th>NIM</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Alamat</th>
+                                    <th>Judul</th>
                                     <th>Pengajuan</th>
                                     <th style="width: 150">Aksi</th>
                                 </tr>
@@ -42,7 +55,7 @@ $mahasiswa = query('SELECT *FROM mahasiswa');
                                     <td><?= $row['nim'] ?></td>
                                     <td><?= $row['tanggal_lahir'] ?></td>
                                     <td><?= $row['jenis_kelamin'] ?></td>
-                                    <td><?= $row['alamat'] ?></td>
+                                    <td><?= $row['judul'] ?></td>
                                     <td><?= $row['pengajuan'] ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-info mb-md-0 mb-1" href="edit_mahasiswa.php">

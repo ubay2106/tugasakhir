@@ -3,11 +3,12 @@ session_start();
 require_once '../layout/top.php';
 require '../database/koneksi.php';
 
-
 if(!isset($_SESSION['role'])){
   header("Location: ../template/index.php");
   exit;
 }
+
+$nidn = query("SELECT * FROM users WHERE role IN ('Pembimbing', 'Penguji')");
 
 if (isset($_POST['submit'])) {
     if (tambah_dosen($_POST) > 0) {
@@ -42,16 +43,17 @@ if (isset($_POST['submit'])) {
     </div>
     <form action="" method="POST">
         <div class="form-group">
-            <label for="nidn">NIDN</label>
-            <input type="text" class="form-control" id="nidn" name="nidn" required>
+            <label for="nidn_id">NIDN</label>
+            <select class="form-control" id="nidn_id" name="nidn_id" required>
+                <option value="" disabled selected>Pilih NIDN</option>
+                <?php foreach( $nidn as $row):?>
+                <option value="<?= $row['id'] ?>"><?= $row['nidn'] ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="nama">Nama Dosen</label>
             <input type="text" class="form-control" id="nama" name="nama" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group">
             <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -65,8 +67,9 @@ if (isset($_POST['submit'])) {
             <label for="status">Status</label>
             <select class="form-control" id="status" name="status" required>
                 <option value="" disabled selected>Pilih Status</option>
-                <option value="Penguji">Penguji</option>
-                <option value="Pembimbing">Pembimbing</option>
+                <?php foreach( $nidn as $row):?>
+                <option value="<?= $row['id'] ?>"><?= $row['role'] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Simpan</button>

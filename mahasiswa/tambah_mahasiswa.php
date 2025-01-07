@@ -9,6 +9,8 @@ if(!isset($_SESSION['role'])){
   exit;
 }
 
+$nim = query("SELECT * FROM users WHERE role = 'Mahasiswa'");
+
 if (isset($_POST['submit'])) {
     if (daftar_mahasiswa($_POST) > 0) {
         echo "
@@ -45,8 +47,13 @@ if (isset($_POST['submit'])) {
             <input type="text" class="form-control" id="nama" name="nama" required>
         </div>
         <div class="form-group">
-            <label for="nim">NIM</label>
-            <input type="text" class="form-control" id="nim" name="nim" required>
+            <label for="nim_id">NIM</label>
+            <select class="form-control" id="nim_id" name="nim_id" required>
+                <option value="" disabled selected>Pilih NIM</option>
+                <?php foreach( $nim as $row):?>
+                <option value="<?= $row['id'] ?>"><?= $row['nim'] ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -61,8 +68,8 @@ if (isset($_POST['submit'])) {
             </select>
         </div>
         <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <input type="text" class="form-control" id="alamat" name="alamat" required>
+            <label for="judul">Judul</label>
+            <input type="text" class="form-control" id="judul" name="judul" required>
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
     </form>

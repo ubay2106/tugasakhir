@@ -9,7 +9,7 @@ if(!isset($_SESSION['role'])){
   exit;
 }
 
-$mahasiswa = query('SELECT *FROM mahasiswa');
+$mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id');
 ?>
 
 <section class="section">
@@ -22,15 +22,15 @@ $mahasiswa = query('SELECT *FROM mahasiswa');
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
-                            <thead>
+                        <thead>
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>NIM</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Alamat</th>
-                                    <th>Pengajuan</th>
+                                    <th>Judul</th>
+                                    <th style="width: 150">Aksi</th>
                                 </tr>
                             </thead>
                             <?php $i=1; foreach( $mahasiswa as $row):?>
@@ -41,7 +41,7 @@ $mahasiswa = query('SELECT *FROM mahasiswa');
                                     <td><?= $row['nim'] ?></td>
                                     <td><?= $row['tanggal_lahir'] ?></td>
                                     <td><?= $row['jenis_kelamin'] ?></td>
-                                    <td><?= $row['alamat'] ?></td>
+                                    <td><?= $row['judul'] ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-info mb-md-0 mb-1" href="">
                                             <i class="fas fa-check-square"></i>

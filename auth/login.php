@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if(isset($_SESSION['role'])){
   header("Location: ../home/index.php");
@@ -171,7 +172,7 @@ if (isset($_POST['login'])) {
                                         <label for="role">Role</label>
                                         <select class="form-control" id="role" name="role" required>
                                             <option value="" disabled selected>Pilih role</option>
-                                            <option value="Admin">Admin</option>
+                                            <!-- <option value="Admin">Admin</option> -->
                                             <option value="Pembimbing">Pembimbing</option>
                                             <option value="Penguji">Penguji</option>
                                             <option value="Kaprodi">Kaprodi</option>

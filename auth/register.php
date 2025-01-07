@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
                                         <label for="role">Role</label>
                                         <select class="form-control" id="role" name="role" required>
                                             <option value="" disabled selected>Pilih role</option>
-                                            <option value="Admin">Admin</option>
+                                            <!-- <option value="Admin">Admin</option> -->
                                             <option value="Pembimbing">Pembimbing</option>
                                             <option value="Penguji">Penguji</option>
                                             <option value="Kaprodi">Kaprodi</option>
