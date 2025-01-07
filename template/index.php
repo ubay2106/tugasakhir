@@ -61,8 +61,13 @@ session_start();
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link active">Home</a>
             </div>
+            <?php if (isset($_SESSION['role'])): ?>
+            <a href="../home/index.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Dashboard<i
+                    class="fa fa-arrow-right ms-3"></i></a>
+            <?php else: ?>
             <a href="../auth/login_user.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i
                     class="fa fa-arrow-right ms-3"></i></a>
+            <?php endif; ?>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -81,8 +86,10 @@ session_start();
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Welcome</h5>
                                 <h1 class="display-3 text-white animated slideInDown">Calon Sarjana Komputer</h1>
                                 <p class="fs-5 text-white mb-4 pb-2">Universitas Bahaudin Mudhary Madura</p>
+                                <?php if (!isset($_SESSION['role'])): ?>
                                 <a href="../auth/register_user.php"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Register</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -98,8 +105,10 @@ session_start();
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">The Best Student</h5>
                                 <h1 class="display-3 text-white animated slideInDown">Fortis Fortuna Adiuvat</h1>
                                 <p class="fs-5 text-white mb-4 pb-2">Universitas Bahaudin Mudhary Madura</p>
+                                <?php if (!isset($_SESSION['role'])): ?>
                                 <a href="../auth/register_user.php"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Register</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -263,12 +272,17 @@ session_start();
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="nav-white dropdown col-md-1 text-center text-md-start mb-3 mb-md-3">
+                <?php if (isset($_SESSION['role'])): ?>
+                <a href="../home/index.php" class="nav-link">Dashboard</a>
+                <?php else: ?>
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
                 <div class="dropdown-menu fade-down m-0">
                     <a href="../auth/login.php" class="dropdown-item">Login</a>
                     <a href="../auth/register.php" class="dropdown-item">Register</a>
                 </div>
+                <?php endif; ?>
             </div>
+
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
