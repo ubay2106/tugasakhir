@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
     } else {
         echo "
             <script>
-                alert('NIM/NIDN atau password salah!');
+                alert('NIM atau password salah!');
                 document.location.href = 'login_user.php';
             </script>
         ";

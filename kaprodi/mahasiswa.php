@@ -10,7 +10,6 @@ if(!isset($_SESSION['role'])){
 }
 
 if (isset($_GET['action']) && isset($_GET['nim_id'])) {
-    var_dump($_GET);
     $id = $_GET['nim_id'];
     $action = $_GET['action'];
 

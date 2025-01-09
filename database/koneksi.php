@@ -94,6 +94,7 @@ function login($data) {
         if (password_verify($password, $user['password'])) {
             // Password cocok, simpan session
             session_start();
+            $_SESSION['nidn'] = $user['nidn'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
             return true;
