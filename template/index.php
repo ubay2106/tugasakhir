@@ -124,38 +124,42 @@ session_start();
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
-                            <h5 class="mb-3">Skilled Instructors</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    <div class="service-item text-center pt-3 h-100">
+                        <div class="p-4 h-100">
+                            <i class="fa fa-3x fa-upload text-primary mb-4"></i>
+                            <h5 class="mb-3">Proposal Submission</h5>
+                            <p>Aplikasi ini memungkinkan Anda untuk mengunggah dan mengirimkan proposal skripsi untuk
+                                disetujui oleh pihak fakultas.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                            <h5 class="mb-3">Online Classes</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    <div class="service-item text-center pt-3 h-100">
+                        <div class="p-4 h-100">
+                            <i class="fa fa-3x fa-users text-primary mb-4"></i>
+                            <h5 class="mb-3">Supervisor & Examiner Assignment</h5>
+                            <p>Penentuan pembimbing dan penguji untuk skripsi Anda akan dilakukan secara otomatis sesuai
+                                dengan bidang keahlian dan ketersediaan.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
-                            <h5 class="mb-3">Home Projects</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    <div class="service-item text-center pt-3 h-100">
+                        <div class="p-4 h-100">
+                            <i class="fa fa-3x fa-gavel text-primary mb-4"></i>
+                            <h5 class="mb-3">Thesis Defense</h5>
+                            <p>Konsultasi bimbingan proposal dan persiapan sidang skripsi dengan pembimbing serta
+                                penguji dilakukan secara online.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
-                            <h5 class="mb-3">Book Library</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    <div class="service-item text-center pt-3 h-100">
+                        <div class="p-4 h-100">
+                            <i class="fa fa-3x fa-star text-primary mb-4"></i>
+                            <h5 class="mb-3">Thesis Evaluation</h5>
+                            <p>Aplikasi menyediakan penilaian proposal dari pembimbing serta memberikan feedback untuk
+                                perbaikan jika diperlukan danterdapat penilaian sidang dari penguji.</p>
                         </div>
                     </div>
                 </div>
@@ -177,34 +181,35 @@ session_start();
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                     <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Welcome to Sarjana Komputer</h1>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
-                        et eos. Clita erat ipsum et lorem et sit.</p>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
-                        et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat
-                        amet</p>
+                    <h1 class="mb-4">Welcome to Sistem Pendaftaran Skripsi</h1>
+                    <p class="mb-4">Selamat datang di platform Pendaftaran Skripsi, solusi sistematis untuk membantu
+                        mahasiswa dalam mendaftarkan dan menyelesaikan skripsi mereka dengan lebih terstruktur dan
+                        efisien. Aplikasi kami dirancang khusus untuk mendukung setiap tahapan pendaftaran dan
+                        pengerjaan skripsi, mulai dari pengisian proposal, penentuan pembimbing, hingga persiapan sidang
+                        skripsi.</p>
+                    <p class="mb-4">Dengan sistem yang terintegrasi, Anda dapat dengan mudah mengajukan proposal,
+                        memilih pembimbing, dan mendaftar untuk sidang skripsi melalui platform ini. Dilengkapi dengan
+                        fitur bimbingan online, pengingat otomatis, serta akses ke berbagai panduan akademik, aplikasi
+                        ini memastikan bahwa seluruh proses berjalan dengan lancar dan tepat waktu.</p>
                     <div class="row gy-2 gx-4 mb-4">
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Pendaftaran Proposal
+                                Skripsi</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Penentuan Pembimbing
+                                dan Penguji</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Sidang Skripsi</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Penilaian dan
+                                Feedback</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Dokumentasi Skripsi
                             </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International
-                                Certificate</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International
-                                Certificate</p>
                         </div>
                     </div>
                 </div>
@@ -212,6 +217,7 @@ session_start();
         </div>
     </div>
     <!-- About End -->
+
 
     <!-- Testimonial Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -224,41 +230,45 @@ session_start();
                 <div class="testimonial-item text-center">
                     <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Lecturer Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Akhmad Tajuddin Tholaby MS S.Kom., M.Kom</h5>
+                    <p>Dosen</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Fakultas: Sains dan Teknologi
+                            Mata Kuliah: Object Oriented Programming
+                        </p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Lecturer Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Zeinor Rahman S.pd., M.pd</h5>
+                    <p>Dosen</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Fakultas: Sains dan Teknologi
+                            Mata Kuliah: Databases
+                        </p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Lecturer Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Desi Anggraini S.Kom., M.Kom</h5>
+                    <p>Dosen</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Fakultas: Sains dan Teknologi
+                            Mata Kuliah: Design Method
+                        </p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Lecturer Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Masdarwiyono S.Kom</h5>
+                    <p>Dosen</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Fakultas: Sains dan Teknologi
+                            Mata Kuliah: Web Programming
+                        </p>
                     </div>
                 </div>
             </div>

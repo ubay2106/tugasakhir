@@ -29,7 +29,7 @@ if(!isset($_SESSION['role'])){
                                 </div>
                                 <div class="card-body d-flex justify-content-between">
                                     <h4>Nama</h4>
-                                    <a class="btn btn-sm btn-info mr-10" href="">
+                                    <a class="btn btn-sm btn-info mr-10" href="edit_proposal.php">
                                         <i class="fas fa-edit fa-fw"></i>
                                     </a>
                                 </div>
