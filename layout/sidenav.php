@@ -29,7 +29,7 @@ if(!isset($_SESSION['role'])){
             <!-- Show only for 'pembimbing' or 'Admin' -->
             <?php if ($_SESSION['role'] == 'Pembimbing' || $_SESSION['role'] == 'Admin'): ?>
                 <li class="menu-header">Main Feature</li>
-                <li><a class="nav-link" href="../pembimbing/jadwalpembimbing.php"><i class="fas fa-calendar-plus"></i> <span>Jadwal Bimbingan</span></a></li>
+                <li><a class="nav-link" href="../pembimbing/jadwalpembimbing.php"><i class="fas fa-calendar-plus"></i> <span>Bimbingan</span></a></li>
                 <li><a class="nav-link" href="../pembimbing/proposal.php"><i class="fas fa-book-open"></i> <span>Proposal</span></a></li>
                 <li><a class="nav-link" href="../pembimbing/nilai_proposal.php"><i class="fas fa-graduation-cap"></i> <span>Nilai</span></a></li>
             <?php endif; ?>
@@ -37,7 +37,7 @@ if(!isset($_SESSION['role'])){
             <!-- Show only for 'penguji' or 'Admin' -->
             <?php if ($_SESSION['role'] == 'Penguji' || $_SESSION['role'] == 'Admin'): ?>
                 <li class="menu-header">Main Feature</li>
-                <li><a class="nav-link" href="../penguji/jadwalpenguji.php"><i class="fas fa-calendar-plus"></i> <span>Jadwal Sidang</span></a></li>
+                <li><a class="nav-link" href="../penguji/jadwalpenguji.php"><i class="fas fa-calendar-plus"></i> <span>Sidang</span></a></li>
                 <li><a class="nav-link" href="../penguji/nilai_sidang.php"><i class="fas fa-graduation-cap"></i> <span>Nilai</span></a></li>
             <?php endif; ?>
 

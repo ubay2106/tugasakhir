@@ -12,8 +12,17 @@ $nim = query("SELECT * FROM users WHERE role = 'Mahasiswa'");
 $uji = query("SELECT * FROM users WHERE role = 'Penguji'");
 $bimbing = query("SELECT * FROM users WHERE role = 'Pembimbing'");
 $mhs = query('SELECT * FROM mahasiswa');
-$pembimbing = query("SELECT * FROM dosen INNER JOIN users ON dosen.nidn_id = users.id WHERE users.role = 'Pembimbing'");
-$penguji = query("SELECT * FROM dosen INNER JOIN users ON dosen.nidn_id = users.id WHERE users.role = 'Penguji'");
+$pembimbing = query("SELECT dosen.id AS dosen_id, dosen.nama AS dosen_nama, dosen.nidn_id, users.id AS user_id
+FROM dosen
+INNER JOIN users ON dosen.nidn_id = users.id
+WHERE users.role = 'Pembimbing';"
+);
+$penguji = query("SELECT dosen.id AS dosen_id, dosen.nama AS dosen_nama, dosen.nidn_id, users.id AS user_id
+FROM dosen
+INNER JOIN users ON dosen.nidn_id = users.id
+WHERE users.role = 'Penguji';"
+);
+
 
 if (isset($_POST['submit'])) {
     if (manage($_POST) > 0) {
@@ -32,7 +41,7 @@ if (isset($_POST['submit'])) {
         ";
     }
 }
-var_dump($_POST);
+
 ?>
 
 <section class="section">
@@ -45,7 +54,7 @@ var_dump($_POST);
             <select class="form-control" id="nim_id" name="nim_id" required>
                 <option value="" disabled selected>Pilih NIM</option>
                 <?php foreach( $nim as $row):?>
-                <option value="<?= $row['id'] ?>"><?= $row['nim'] ?></option>
+                <option value="<?= $row['id'] ?>"><?= $row['id']. $row['nim'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -81,7 +90,7 @@ var_dump($_POST);
             <select class="form-control" id="pembimbing_id" name="pembimbing_id" required>
                 <option value="" disabled selected>Pilih Pembimbing</option>
                 <?php foreach( $pembimbing as $row):?>
-                <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                <option value="<?= $row['dosen_id'] ?>"><?= $row['dosen_nama'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -99,7 +108,7 @@ var_dump($_POST);
             <select class="form-control" id="penguji_id" name="penguji_id" required>
                 <option value="" disabled selected>Pilih Penguji</option>
                 <?php foreach( $penguji as $row):?>
-                <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                <option value="<?= $row['dosen_id'] ?>"><?= $row['dosen_nama'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
