@@ -16,8 +16,11 @@ if(!isset($_SESSION['role'])){
     $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
     $mahasiswa = query("SELECT * FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id WHERE users.nim = '$nim'");
 
-    $cek_tugas_akhir = query("SELECT COUNT(*) AS jumlah FROM mahasiswa WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
+    $cek_tugas_akhir = query("SELECT COUNT(*) AS jumlah, MAX(pengajuan) AS pengajuan 
+    FROM mahasiswa 
+    WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
     $tugas_akhir_sudah_ada = ($cek_tugas_akhir[0]['jumlah'] > 0);
+    $status_pengajuan = $cek_tugas_akhir[0]['pengajuan'];
 }
 
 ?>
@@ -25,7 +28,7 @@ if(!isset($_SESSION['role'])){
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Data Peserta</h1>
-        <?php if ($_SESSION['role'] === 'Admin' || !$tugas_akhir_sudah_ada): ?>
+        <?php if ($_SESSION['role'] === 'Admin' || (!$tugas_akhir_sudah_ada || $status_pengajuan == 'ditolak')): ?>
         <a href="../mahasiswa/tambah_mahasiswa.php" class="btn btn-primary">Daftar Tugas Akhir</a>
         <?php endif; ?>
     </div>
@@ -44,7 +47,6 @@ if(!isset($_SESSION['role'])){
                                     <th>Jenis Kelamin</th>
                                     <th>Judul</th>
                                     <th>Pengajuan</th>
-                                    <th style="width: 150">Aksi</th>
                                 </tr>
                             </thead>
                             <?php $i=1; foreach( $mahasiswa as $row):?>
@@ -57,11 +59,6 @@ if(!isset($_SESSION['role'])){
                                     <td><?= $row['jenis_kelamin'] ?></td>
                                     <td><?= $row['judul'] ?></td>
                                     <td><span class="badge badge-success"><?= $row['pengajuan'] ?></span></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-info mb-md-0 mb-1" href="edit_mahasiswa.php">
-                                            <i class="fas fa-edit fa-fw"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             </tbody>
                             <?php $i++; endforeach; ?>

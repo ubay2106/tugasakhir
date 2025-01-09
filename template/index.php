@@ -146,7 +146,7 @@ session_start();
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item text-center pt-3 h-100">
                         <div class="p-4 h-100">
-                            <i class="fa fa-3x fa-gavel text-primary mb-4"></i>
+                            <i class="fa fa-3x fa-book text-primary mb-4"></i>
                             <h5 class="mb-3">Thesis Defense</h5>
                             <p>Konsultasi bimbingan proposal dan persiapan sidang skripsi dengan pembimbing serta
                                 penguji dilakukan secara online.</p>

@@ -45,7 +45,7 @@ if(!isset($_SESSION['role'])){
             <?php if ($_SESSION['role'] == 'Mahasiswa' || $_SESSION['role'] == 'Admin'): ?>
                 <li class="menu-header">Main Feature</li>
                 <li><a class="nav-link" href="../mahasiswa/mahasiswa.php"><i class="fas fa-chalkboard"></i> <span>Tugas Akhir</span></a></li>
-                <li><a class="nav-link" href="../mahasiswa/jadwal.php"><i class="fas fa-calendar"></i> <span>Jadwal Proposal Dan Sidang</span></a></li>
+                <li><a class="nav-link" href="../mahasiswa/jadwal.php"><i class="fas fa-calendar"></i> <span>Informasi Tugas Akhir</span></a></li>
                 <li><a class="nav-link" href="../mahasiswa/proposal.php"><i class="fas fa-book"></i> <span>Proposal</span></a></li>
                 <li><a class="nav-link" href="../mahasiswa/nilai.php"><i class="fas fa-graduation-cap"></i> <span>Nilai</span></a></li>
             <?php endif; ?>

@@ -227,13 +227,6 @@ function daftar_mahasiswa($data){
     $jenis_kelamin = htmlspecialchars($data['jenis_kelamin']);
     $judul = htmlspecialchars($data['judul']);
 
-    $cek = "SELECT *FROM mahasiswa WHERE nim_id = '$nim_id'";
-    $cek1=mysqli_query($conn, $cek);
-
-    if(mysqli_num_rows($cek1) > 0){  
-        return -1;
-    }
-
     $query = "INSERT INTO mahasiswa (nama, nim_id, tanggal_lahir, jenis_kelamin, judul) VALUES
                     ('$nama', '$nim_id', '$tanggal_lahir', '$jenis_kelamin', '$judul')";
 
@@ -291,6 +284,44 @@ function updateStatus($id, $pengajuan) {
     } else {
         mysqli_stmt_close($stmt);
         return false;
+    }
+}
+
+//ganti pw
+function changePassword($data)
+{
+    global $conn;
+
+    // Ambil data input
+    $nidn = htmlspecialchars($data['nidn']);
+    $role = htmlspecialchars($data['role']);
+    $currentPassword = htmlspecialchars($data['password']);
+    $newPassword = htmlspecialchars($data['new_password']);
+
+    // Ambil data user berdasarkan NIDN dan role
+    $query = "SELECT * FROM users WHERE nidn = '$nidn' AND role = '$role'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) === 1) {
+        $user = mysqli_fetch_assoc($result);
+
+        // Verifikasi password lama
+        if (password_verify($currentPassword, $user['password'])) {
+            // Hash password baru
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            // Update password di database
+            $updateQuery = "UPDATE users SET password = '$hashedPassword' WHERE nidn = '$nidn' AND role = '$role'";
+            if (mysqli_query($conn, $updateQuery)) {
+                return 'Password berhasil diubah.';
+            } else {
+                return 'Terjadi kesalahan saat mengubah password.';
+            }
+        } else {
+            return 'Password lama salah.';
+        }
+    } else {
+        return 'Pengguna tidak ditemukan.';
     }
 }
 ?>
