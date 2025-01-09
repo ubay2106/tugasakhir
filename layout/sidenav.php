@@ -23,7 +23,7 @@ if(!isset($_SESSION['role'])){
                 <li class="menu-header">Main Feature</li>
                 <li><a class="nav-link" href="../kaprodi/dosen.php"><i class="fas fa-users"></i> <span>List Dosen</span></a></li>
                 <li><a class="nav-link" href="../kaprodi/mahasiswa.php"><i class="fas fa-user-graduate"></i> <span>Data Mahasiswa</span></a></li>
-                <li><a class="nav-link" href="../kaprodi/akun.php"><i class="fas fa-bars"></i> <span>Penentuan</span></a></li>
+                <li><a class="nav-link" href="../kaprodi/penentuan.php"><i class="fas fa-bars"></i> <span>Penentuan</span></a></li>
             <?php endif; ?>
 
             <!-- Show only for 'pembimbing' or 'Admin' -->

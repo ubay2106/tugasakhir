@@ -9,7 +9,40 @@ if(!isset($_SESSION['role'])){
   exit;
 }
 
+if (isset($_GET['action']) && isset($_GET['nim_id'])) {
+    var_dump($_GET);
+    $id = $_GET['nim_id'];
+    $action = $_GET['action'];
+
+    if ($action === 'approve') {
+        if (updateStatus($id, 'disetujui')) {
+            echo "<script>
+                alert('Pengajuan berhasil disetujui');
+                document.location.href = 'mahasiswa.php';
+            </script>";
+        } else {
+            echo "<script>
+                alert('Gagal menyetujui pengajuan');
+                document.location.href = 'mahasiswa.php';
+            </script>";
+        }
+    } elseif ($action === 'reject') {
+        if (updateStatus($id, 'ditolak')) {
+            echo "<script>
+                alert('Pengajuan berhasil ditolak');
+                document.location.href = 'mahasiswa.php';
+            </script>";
+        } else {
+            echo "<script>
+                alert('Gagal menolak pengajuan');
+                document.location.href = 'mahasiswa.php';
+            </script>";
+        }
+    }
+}
+
 $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id');
+
 ?>
 
 <section class="section">
@@ -43,12 +76,18 @@ $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id 
                                     <td><?= $row['jenis_kelamin'] ?></td>
                                     <td><?= $row['judul'] ?></td>
                                     <td>
-                                        <a class="btn btn-sm btn-info mb-md-0 mb-1" href="">
+                                    <?php if ($row['pengajuan'] === 'disetujui'): ?>
+                                            <span class="badge badge-success">Disetujui</span>
+                                        <?php elseif ($row['pengajuan'] === 'ditolak'): ?>
+                                            <span class="badge badge-danger">Ditolak</span>
+                                        <?php else: ?>
+                                        <a class="btn btn-sm btn-info mb-md-0 mb-1" href="mahasiswa.php?action=approve&nim_id=<?= $row['nim_id'] ?>">
                                             <i class="fas fa-check-square"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-danger" href="">
+                                        <a class="btn btn-sm btn-danger" href="mahasiswa.php?action=reject&nim_id=<?= $row['nim_id'] ?>">
                                             <i class="fas fa-window-close"></i>
                                         </a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             </tbody>

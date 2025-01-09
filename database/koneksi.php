@@ -241,4 +241,55 @@ function daftar_mahasiswa($data){
     return mysqli_affected_rows($conn);
 }
 
+
+//manage
+function manage($data){
+    global $conn;
+    $nim_id = htmlspecialchars($data['nim_id']);
+    $mahasiswa_id = htmlspecialchars($data['mahasiswa_id']);
+    $judul_id = htmlspecialchars($data['judul_id']);
+    $nidn_idbim = htmlspecialchars($data['nidn_idbim']);
+    $pembimbing_id = htmlspecialchars($data['pembimbing_id']);
+    $nidn_iduji = htmlspecialchars($data['nidn_iduji']);
+    $penguji_id = htmlspecialchars($data['penguji_id']);
+
+    $cek = "SELECT *FROM penentuan WHERE nim_id = '$nim_id'";
+    $cek1=mysqli_query($conn, $cek);
+
+    if(mysqli_num_rows($cek1) > 0){  
+        return -1;
+    }
+
+    $query = "INSERT INTO penentuan (nim_id, mahasiswa_id, judul_id, nidn_idbim, pembimbing_id, nidn_iduji, penguji_id) VALUES
+                    ('$nim_id', '$mahasiswa_id', '$judul_id', '$nidn_idbim', '$pembimbing_id', '$nidn_iduji', '$penguji_id')";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+//pengajuan update
+function updateStatus($id, $pengajuan) {
+    global $conn;
+
+    $id = htmlspecialchars($id);
+    $pengajuan = htmlspecialchars($pengajuan);
+
+    $query = "UPDATE mahasiswa SET pengajuan = ? WHERE nim_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+
+    if (!$stmt) {
+        die("Query preparation failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, "si", $pengajuan, $id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
+        return true;
+    } else {
+        mysqli_stmt_close($stmt);
+        return false;
+    }
+}
 ?>

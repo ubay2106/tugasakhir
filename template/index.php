@@ -177,7 +177,7 @@ session_start();
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                     <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Welcome to eLEARNING</h1>
+                    <h1 class="mb-4">Welcome to Sarjana Komputer</h1>
                     <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
                         et eos. Clita erat ipsum et lorem et sit.</p>
                     <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
@@ -207,7 +207,6 @@ session_start();
                                 Certificate</p>
                         </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
                 </div>
             </div>
         </div>
@@ -223,7 +222,7 @@ session_start();
             </div>
             <div class="owl-carousel testimonial-carousel position-relative">
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg"
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Lecturer Name</h5>
                     <p>Profession</p>
@@ -233,7 +232,7 @@ session_start();
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg"
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Lecturer Name</h5>
                     <p>Profession</p>
@@ -243,7 +242,7 @@ session_start();
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg"
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Lecturer Name</h5>
                     <p>Profession</p>
@@ -253,7 +252,7 @@ session_start();
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg"
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/avatar.png"
                         style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Lecturer Name</h5>
                     <p>Profession</p>

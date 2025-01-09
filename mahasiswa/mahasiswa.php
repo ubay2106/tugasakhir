@@ -56,7 +56,7 @@ if(!isset($_SESSION['role'])){
                                     <td><?= $row['tanggal_lahir'] ?></td>
                                     <td><?= $row['jenis_kelamin'] ?></td>
                                     <td><?= $row['judul'] ?></td>
-                                    <td><?= $row['pengajuan'] ?></td>
+                                    <td><span class="badge badge-success"><?= $row['pengajuan'] ?></span></td>
                                     <td>
                                         <a class="btn btn-sm btn-info mb-md-0 mb-1" href="edit_mahasiswa.php">
                                             <i class="fas fa-edit fa-fw"></i>
