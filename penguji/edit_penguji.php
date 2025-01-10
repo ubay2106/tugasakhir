@@ -41,7 +41,7 @@ if (isset($_GET['penentuan_id'])) {
 
 <section class="section">
     <div class="section-header">
-        <h1>Edit Jadwal Sidang</h1>
+        <h1>Jadwal Sidang</h1>
     </div>
     <div class="row">
         <div class="col-12">

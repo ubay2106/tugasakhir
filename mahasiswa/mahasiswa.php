@@ -32,10 +32,12 @@ if(!isset($_SESSION['role'])){
         <a href="../mahasiswa/tambah_mahasiswa.php" class="btn btn-primary">Daftar Tugas Akhir</a>
         <?php endif; ?>
     </div>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                <?php if (!empty($tugas_akhir_sudah_ada)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
                             <thead>
@@ -64,6 +66,11 @@ if(!isset($_SESSION['role'])){
                             <?php $i++; endforeach; ?>
                         </table>
                     </div>
+                    <?php else: ?>
+                        <div class="text-center">
+                            <p>Silahkan daftar terlebih dahulu.</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

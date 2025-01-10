@@ -15,17 +15,16 @@ if (isset($_GET['penentuan_id'])) {
     $penentuan = query("SELECT * FROM penentuan WHERE id = '$penentuan_id'");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Ambil tanggal dari form
-        $jadwal_bim = mysqli_real_escape_string($conn, $_POST['jadwal_bim']);
+
+        $nilai_s = mysqli_real_escape_string($conn, $_POST['nilai_s']);
         
-        // Update tabel penentuan dengan jadwal_bim
-        $updatequery = "UPDATE penentuan SET jadwal_bim = '$jadwal_bim' WHERE id = '$penentuan_id'";
+        $updatequery = "UPDATE penentuan SET nilai_s = '$nilai_s' WHERE id = '$penentuan_id'";
         
         if (mysqli_query($conn, $updatequery)) {
             // Jika update berhasil, tampilkan alert dan redirect
             echo "<script>
-                    alert('Jadwal berhasil ditambahkan');
-                    window.location.href = '../pembimbing/jadwalpembimbing.php';
+                    alert('Nilai berhasil ditambahkan');
+                    window.location.href = '../penguji/nilai_sidang.php';
                   </script>";
             exit;
         } else {
@@ -41,7 +40,7 @@ if (isset($_GET['penentuan_id'])) {
 
 <section class="section">
     <div class="section-header">
-        <h1>Jadwal Bimbingan</h1>
+        <h1>Nilai Sidang</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -49,8 +48,8 @@ if (isset($_GET['penentuan_id'])) {
                 <div class="card-body">
                     <form method="POST">
                         <div class="form-group">
-                            <label for="jadwal_bim">Tanggal Bimbingan</label>
-                            <input type="date" name="jadwal_bim" id="jadwal_bim" class="form-control" required value="<?= $penentuan[0]['jadwal_bim'] ?>">
+                            <label for="nilai_s">Nilai Sidang</label>
+                            <input type="text" name="nilai_s" id="nilai_s" class="form-control" required value="<?= $penentuan[0]['nilai_s'] ?>">
                         </div>
                         <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
                     </form>

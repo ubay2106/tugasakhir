@@ -25,7 +25,11 @@ if (!isset($_SESSION['role'])) {
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <form action="../auth/logout.php" method="POST">
+                    <?php if ($_SESSION['role'] === 'Mahasiswa'):?>
+                    <a class="dropdown-item has-icon text-danger" href="../auth/password_user.php"><i class="fas fa-key"></i>Ganti Password</a>
+                    <?php else: ?>
                     <a class="dropdown-item has-icon text-danger" href="../auth/password.php"><i class="fas fa-key"></i>Ganti Password</a>
+                    <?php endif; ?>
                     <button type="submit" name="logout" class="dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>

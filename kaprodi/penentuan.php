@@ -3,9 +3,9 @@ session_start();
 require_once '../layout/top.php';
 require '../database/koneksi.php';
 
-if(!isset($_SESSION['role'])){
-  header("Location: ../template/index.php");
-  exit;
+if (!isset($_SESSION['role'])) {
+    header('Location: ../template/index.php');
+    exit();
 }
 
 $penentuan = query("SELECT 
@@ -30,8 +30,10 @@ INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
 -- Join dengan tabel users untuk nidn_iduji
 INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
 -- Join dengan tabel dosen untuk penguji_id
-INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;"
-);
+INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;");
+$cek = query("SELECT COUNT(*) AS jumlah
+                FROM penentuan");
+$cek1 = $cek[0]['jumlah'] > 0;
 ?>
 
 <section class="section">
@@ -43,6 +45,7 @@ INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;"
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <?php if (!empty($cek1)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
                             <thead>
@@ -73,6 +76,11 @@ INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;"
                             <?php $i++; endforeach; ?>
                         </table>
                     </div>
+                    <?php else: ?>
+                    <div class="text-center">
+                        <p>Belum ada data</p>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

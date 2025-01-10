@@ -4,8 +4,8 @@ require_once '../layout/top.php';
 require '../database/koneksi.php';
 
 if (!isset($_SESSION['role'])) {
-    header("Location: ../template/index.php");
-    exit;
+    header('Location: ../template/index.php');
+    exit();
 }
 
 if ($_SESSION['role'] === 'Admin') {
@@ -17,13 +17,14 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_uji
+            penentuan.jadwal_uji,
+            penentuan.lap_jaduji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
-        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;"
+        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;",
     );
 } elseif ($_SESSION['role'] === 'Penguji') {
     $nidn = mysqli_real_escape_string($conn, $_SESSION['nidn']);
@@ -35,19 +36,25 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_uji
+            penentuan.jadwal_uji,
+            penentuan.lap_jaduji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
         INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id
-        WHERE users3.nidn = '$nidn';"
+        WHERE users3.nidn = '$nidn';",
     );
+    $cek = query("SELECT COUNT(*) AS jumlah
+    FROM penentuan 
+    WHERE nidn_idbim = (SELECT id FROM users WHERE nidn = '$nidn')");
+    $cek1 = $cek[0]['jumlah'] > 0;
 } else {
-    header("Location: ../template/index.php");
-    exit;
+    header('Location: ../template/index.php');
+    exit();
 }
+
 ?>
 
 <section class="section">
@@ -58,6 +65,7 @@ if ($_SESSION['role'] === 'Admin') {
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <?php if (!empty($cek1)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
                             <thead>
@@ -69,6 +77,7 @@ if ($_SESSION['role'] === 'Admin') {
                                     <th>NIDN Penguji</th>
                                     <th>Dosen Penguji</th>
                                     <th>Jadwal Sidang</th>
+                                    <th>Laporan Jadwal</th>
                                 </tr>
                             </thead>
                             <?php $i = 1; foreach ($penentuan as $row): ?>
@@ -81,12 +90,27 @@ if ($_SESSION['role'] === 'Admin') {
                                     <td><?= $row['nidn_penguji'] ?></td>
                                     <td><?= $row['dosen_penguji'] ?></td>
                                     <td>
-                                    <?php if ($row['jadwal_uji']): ?>
-                                            <span class="badge badge-success"><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
+                                        <?php if ($row['jadwal_uji']): ?>
+                                        <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
                                         <?php else: ?>
-                                            <a class="btn btn-sm btn-primary mb-md-0 mb-1" href="edit_penguji.php?penentuan_id=<?= $row['penentuan_id'] ?>">
-                                                <i class="fas fa-calendar-plus fa-fw"></i>
-                                            </a>
+                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                            href="edit_penguji.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                            <i class="fas fa-calendar-plus fa-fw"></i>
+                                        </a>
+                                        <?php endif; ?>
+
+                                    </td>
+                                    <td>
+                                        <?php if ($row['lap_jaduji']): ?>
+                                        <span class="badge badge-success"><a class="text-white"
+                                                href="../assets/proposals/<?= $row['lap_jaduji'] ?>" target="_blank">
+                                                Open
+                                            </a></span>
+                                        <?php else: ?>
+                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                            href="lap_jad.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                            <i class="fas fa-upload fa-fw"></i>
+                                        </a>
                                         <?php endif; ?>
 
                                     </td>
@@ -95,6 +119,11 @@ if ($_SESSION['role'] === 'Admin') {
                             <?php $i++; endforeach; ?>
                         </table>
                     </div>
+                    <?php else: ?>
+                    <div class="text-center">
+                        <p>Belum ada data</p>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

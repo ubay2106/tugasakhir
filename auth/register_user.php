@@ -135,24 +135,6 @@ if (isset($_POST['submit'])) {
         </section>
     </div>
 
-    <script>
-        const roleSelect = document.getElementById('role');
-        const nidnGroup = document.getElementById('nidn-group');
-        const nimGroup = document.getElementById('nim-group');
-
-        // Menambahkan event listener untuk perubahan pilihan role
-        roleSelect.addEventListener('change', function() {
-            // Jika role yang dipilih adalah Mahasiswa, tampilkan input NIM dan sembunyikan NIDN
-            if (roleSelect.value === 'Mahasiswa') {
-                nimGroup.style.display = 'block'; // Tampilkan NIM
-                nidnGroup.style.display = 'none'; // Sembunyikan NIDN
-            } else {
-                nidnGroup.style.display = 'block'; // Tampilkan NIDN
-                nimGroup.style.display = 'none'; // Sembunyikan NIM
-            }
-        });
-    </script>
-
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

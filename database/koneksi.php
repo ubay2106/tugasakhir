@@ -48,6 +48,7 @@ function login_user($data) {
         if (password_verify($password, $user['password'])) {
             // Password cocok, simpan session
             session_start();
+            $_SESSION['id'] = $user ['id'];
             $_SESSION['nim'] = $user ['nim'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
@@ -94,6 +95,7 @@ function login($data) {
         if (password_verify($password, $user['password'])) {
             // Password cocok, simpan session
             session_start();
+            $_SESSION['id'] = $user['id'];
             $_SESSION['nidn'] = $user['nidn'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
@@ -312,6 +314,44 @@ function changePassword($data)
 
             // Update password di database
             $updateQuery = "UPDATE users SET password = '$hashedPassword' WHERE nidn = '$nidn' AND role = '$role'";
+            if (mysqli_query($conn, $updateQuery)) {
+                return 'Password berhasil diubah.';
+            } else {
+                return 'Terjadi kesalahan saat mengubah password.';
+            }
+        } else {
+            return 'Password lama salah.';
+        }
+    } else {
+        return 'Pengguna tidak ditemukan.';
+    }
+}
+
+//ganti pw user
+function changeUser($data)
+{
+    global $conn;
+
+    // Ambil data input
+    $nim = htmlspecialchars($data['nim']);
+    $role = htmlspecialchars($data['role']);
+    $currentPassword = htmlspecialchars($data['password']);
+    $newPassword = htmlspecialchars($data['new_password']);
+
+    // Ambil data user berdasarkan NIDN dan role
+    $query = "SELECT * FROM users WHERE nim = '$nim' AND role = '$role'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) === 1) {
+        $user = mysqli_fetch_assoc($result);
+
+        // Verifikasi password lama
+        if (password_verify($currentPassword, $user['password'])) {
+            // Hash password baru
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            // Update password di database
+            $updateQuery = "UPDATE users SET password = '$hashedPassword' WHERE nim = '$nim' AND role = '$role'";
             if (mysqli_query($conn, $updateQuery)) {
                 return 'Password berhasil diubah.';
             } else {

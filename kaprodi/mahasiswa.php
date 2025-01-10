@@ -3,10 +3,9 @@ session_start();
 require_once '../layout/top.php';
 require '../database/koneksi.php';
 
-
-if(!isset($_SESSION['role'])){
-  header("Location: ../template/index.php");
-  exit;
+if (!isset($_SESSION['role'])) {
+    header('Location: ../template/index.php');
+    exit();
 }
 
 if (isset($_GET['action']) && isset($_GET['nim_id'])) {
@@ -41,7 +40,9 @@ if (isset($_GET['action']) && isset($_GET['nim_id'])) {
 }
 
 $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id');
-
+$cek = query("SELECT COUNT(*) AS jumlah
+                FROM mahasiswa");
+$cek1 = $cek[0]['jumlah'] > 0;
 ?>
 
 <section class="section">
@@ -52,9 +53,10 @@ $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id 
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                <?php if (!empty($cek1)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
-                        <thead>
+                            <thead>
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Nama</th>
@@ -75,15 +77,17 @@ $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id 
                                     <td><?= $row['jenis_kelamin'] ?></td>
                                     <td><?= $row['judul'] ?></td>
                                     <td>
-                                    <?php if ($row['pengajuan'] === 'disetujui'): ?>
-                                            <span class="badge badge-success">Disetujui</span>
+                                        <?php if ($row['pengajuan'] === 'disetujui'): ?>
+                                        <span class="badge badge-success">Disetujui</span>
                                         <?php elseif ($row['pengajuan'] === 'ditolak'): ?>
-                                            <span class="badge badge-danger">Ditolak</span>
+                                        <span class="badge badge-danger">Ditolak</span>
                                         <?php else: ?>
-                                        <a class="btn btn-sm btn-info mb-md-0 mb-1" href="mahasiswa.php?action=approve&nim_id=<?= $row['nim_id'] ?>">
+                                        <a class="btn btn-sm btn-info mb-md-0 mb-1"
+                                            href="mahasiswa.php?action=approve&nim_id=<?= $row['nim_id'] ?>">
                                             <i class="fas fa-check-square"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-danger" href="mahasiswa.php?action=reject&nim_id=<?= $row['nim_id'] ?>">
+                                        <a class="btn btn-sm btn-danger"
+                                            href="mahasiswa.php?action=reject&nim_id=<?= $row['nim_id'] ?>">
                                             <i class="fas fa-window-close"></i>
                                         </a>
                                         <?php endif; ?>
@@ -93,6 +97,11 @@ $mahasiswa = query('SELECT *FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id 
                             <?php $i++; endforeach; ?>
                         </table>
                     </div>
+                    <?php else: ?>
+                        <div class="text-center">
+                            <p>Belum ada data</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

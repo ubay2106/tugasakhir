@@ -9,8 +9,7 @@ if (!isset($_SESSION['role'])) {
 
 ?>
 
-<section class="section">
-    <div class="section-header">
+<section class="section">    <div class="section-header">
         <h1>Edit Dosen</h1>
     </div>
     <form action="" method="POST">
