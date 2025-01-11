@@ -95,7 +95,7 @@ if ($_SESSION['role'] === 'Admin') {
                                         </a>
                                         <?php endif; ?>
                                         <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                            href="catatan.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                            href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">
                                             <i class="fas fa-edit fa-fw"></i>
                                         </a>
                                         </div>
