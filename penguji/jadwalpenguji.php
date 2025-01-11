@@ -17,8 +17,7 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_uji,
-            penentuan.lap_jaduji
+            penentuan.jadwal_uji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
@@ -26,6 +25,9 @@ if ($_SESSION['role'] === 'Admin') {
         INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
         INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;",
     );
+    $cek = query("SELECT COUNT(*) AS jumlah
+    FROM penentuan");
+    $cek1 = $cek[0]['jumlah'] > 0;
 } elseif ($_SESSION['role'] === 'Penguji') {
     $nidn = mysqli_real_escape_string($conn, $_SESSION['nidn']);
     $penentuan = query(
@@ -36,8 +38,7 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_uji,
-            penentuan.lap_jaduji
+            penentuan.jadwal_uji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
@@ -77,7 +78,6 @@ if ($_SESSION['role'] === 'Admin') {
                                     <th>NIDN Penguji</th>
                                     <th>Dosen Penguji</th>
                                     <th>Jadwal Sidang</th>
-                                    <th>Laporan Jadwal</th>
                                 </tr>
                             </thead>
                             <?php $i = 1; foreach ($penentuan as $row): ?>
@@ -96,20 +96,6 @@ if ($_SESSION['role'] === 'Admin') {
                                         <a class="btn btn-sm btn-primary mb-md-0 mb-1"
                                             href="edit_penguji.php?penentuan_id=<?= $row['penentuan_id'] ?>">
                                             <i class="fas fa-calendar-plus fa-fw"></i>
-                                        </a>
-                                        <?php endif; ?>
-
-                                    </td>
-                                    <td>
-                                        <?php if ($row['lap_jaduji']): ?>
-                                        <span class="badge badge-success"><a class="text-white"
-                                                href="../assets/proposals/<?= $row['lap_jaduji'] ?>" target="_blank">
-                                                Open
-                                            </a></span>
-                                        <?php else: ?>
-                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                            href="lap_jad.php?penentuan_id=<?= $row['penentuan_id'] ?>">
-                                            <i class="fas fa-upload fa-fw"></i>
                                         </a>
                                         <?php endif; ?>
 

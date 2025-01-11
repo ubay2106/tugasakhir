@@ -1,83 +1,93 @@
 <?php
 session_start();
 require_once '../layout/top.php';
-require '../database/koneksi.php'; // File koneksi database
+require '../database/koneksi.php';
 
-// Cek apakah pengguna memiliki akses
-if (!isset($_SESSION['role']) || !isset($_SESSION['id'])) {
-    header('Location: ../template/index.php');
-    exit();
+if (!isset($_SESSION['role'])) {
+    header("Location: ../template/index.php");
+    exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['proposal_mhs'])) {
-    $nim_id = $_SESSION['id'];
-    $file = $_FILES['proposal_mhs'];
+if (isset($_GET['penentuan_id'])) {
+    $penentuan_id = $_GET['penentuan_id'];
+    
+    // Ambil data penentuan untuk penentuan_id
+    $penentuan = query("SELECT * FROM penentuan WHERE id = '$penentuan_id'");
 
-    uploadProposal($nim_id, $file);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $lap_mhs_file = $_FILES['lap_mhs'];
+
+        // Jika file diunggah
+        if ($lap_mhs_file['error'] === UPLOAD_ERR_OK) {
+            // Validasi file
+            $allowedExtensions = ['pdf', 'doc', 'docx'];
+            $fileExtension = strtolower(pathinfo($lap_mhs_file['name'], PATHINFO_EXTENSION));
+            
+            if (!in_array($fileExtension, $allowedExtensions)) {
+                echo "<script>alert('Hanya file dengan ekstensi PDF, DOC, atau DOCX yang diperbolehkan.');</script>";
+            } else {
+                // Simpan file
+                $uploadDir = '../assets/proposals/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true); // Buat folder jika belum ada
+                }
+
+                // Validasi jika file dengan nama sama sudah ada
+                $fileName = basename($lap_mhs_file['name']);
+                $uploadPath = $uploadDir . $fileName;
+
+                if (file_exists($uploadPath)) {
+                    echo "<script>alert('File dengan nama yang sama sudah ada. Ganti nama file dan coba lagi.');</script>";
+                } else {
+                    if (move_uploaded_file($lap_mhs_file['tmp_name'], $uploadPath)) {
+                        // Update `lap_mhs` di database
+                        $updatequery = "UPDATE penentuan SET lap_mhs = '$fileName' WHERE id = '$penentuan_id'";
+                        
+                        if (mysqli_query($conn, $updatequery)) {
+                            echo "<script>
+                                    alert('Laporan berhasil diunggah');
+                                    window.location.href = '../mahasiswa/proposal.php';
+                                  </script>";
+                            exit;
+                        } else {
+                            echo "<script>alert('Terjadi kesalahan saat menyimpan data ke database.');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Gagal menyimpan file yang diunggah.');</script>";
+                    }
+                }
+            }
+        } else {
+            echo "<script>alert('Tidak ada file yang diunggah atau terjadi kesalahan.');</script>";
+        }
+    }
+} else {
+    echo "Data tidak ditemukan.";
+    exit;
 }
 
-function uploadProposal($nim_id, $file)
-{
-    global $conn; // Gunakan koneksi database
-
-    // Validasi file
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan saat mengunggah file.</div>";
-        return;
-    }
-
-    // Periksa ekstensi file
-    $allowedExtensions = ['pdf', 'doc', 'docx'];
-    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-    if (!in_array($fileExtension, $allowedExtensions)) {
-        echo "<div class='alert alert-danger'>Hanya file dengan ekstensi PDF, DOC, atau DOCX yang diperbolehkan.</div>";
-        return;
-    }
-
-    // Simpan file ke folder tertentu menggunakan nama asli
-    $uploadDir = '../assets/proposals/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true); // Buat folder jika belum ada
-    }
-
-    $uploadPath = $uploadDir . basename($file['name']); // Menggunakan nama asli file
-
-    if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
-        echo "<div class='alert alert-danger'>Gagal memindahkan file yang diunggah.</div>";
-        return;
-    }
-
-    // Masukkan data ke database
-    $proposal = basename($file['name']);
-    $query = "INSERT INTO proposal (nim_id, proposal_mhs) VALUES ('$nim_id', '$proposal')";
-
-    if (mysqli_query($conn, $query)) {
-        echo "<script>
-                alert('Berhasil Upload File');
-                document.location.href = 'proposal.php';
-            </script>";
-    } else {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan saat menyimpan data ke database.</div>";
-    }
-}
 ?>
 
 <section class="section">
     <div class="section-header">
-        <h1>Upload Proposal</h1>
+        <h1>Upload Laporan Bimbingan</h1>
     </div>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <!-- nim_id diambil otomatis dari session -->
-            <input type="hidden" name="nim_id" value="<?= $_SESSION['id'] ?>">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="lap_mhs">Upload Laporan</label>
+                            <input type="file" name="lap_mhs" id="lap_mhs" class="form-control" required>
+                            <small>Hanya file PDF, DOC, atau DOCX yang diperbolehkan.</small>
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="proposal_mhs">Pilih File</label>
-            <input type="file" name="proposal_mhs" id="proposal_mhs" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
+    </div>
 </section>
 
 <?php

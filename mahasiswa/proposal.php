@@ -1,65 +1,106 @@
 <?php
 session_start();
 require_once '../layout/top.php';
-require '../database/koneksi.php'; // File koneksi database
+require '../database/koneksi.php';
 
-// Cek apakah pengguna memiliki akses
 if (!isset($_SESSION['role'])) {
-    header("Location: ../template/index.php");
-    exit;
+    header('Location: ../template/index.php');
+    exit();
 }
 
-$role = $_SESSION['role'];
-$nim_id = $_SESSION['id'];
+// Cek role dari sesi login
+if ($_SESSION['role'] === 'Admin') {
+    // Jika admin, ambil semua data penentuan
+    $penentuan = query(
+        "SELECT 
+            penentuan.id AS penentuan_id,
+            users1.nim AS nim,
+            mahasiswa.nama AS mahasiswa_nama,
+            mahasiswa.judul AS judul,
+            users2.nidn AS nidn_pembimbing,
+            dosen1.nama AS dosen_pembimbing,
+            penentuan.catatan,
+            penentuan.lap_mhs
+        FROM 
+            penentuan
+        INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
+        INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
+        INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
+        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id;",
+    );
+    $cek = query("SELECT COUNT(*) AS jumlah
+    FROM penentuan ");
+    $cek1 = $cek[0]['jumlah'] > 0;
+} elseif ($_SESSION['role'] === 'Mahasiswa') {
+    $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
+    $penentuan = query(
+        "SELECT 
+            penentuan.id AS penentuan_id,
+            users1.nim AS nim,
+            mahasiswa.nama AS mahasiswa_nama,
+            mahasiswa.judul AS judul,
+            users2.nidn AS nidn_pembimbing,
+            dosen1.nama AS dosen_pembimbing,
+            penentuan.catatan,
+            penentuan.lap_mhs
+        FROM 
+            penentuan
+        INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
+        INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
+        INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
+        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
+        WHERE users1.nim = '$nim';",
+    );
 
-if ($role === 'Admin') {
-    $query = "SELECT * FROM proposal"; // Query untuk admin
+    $cek = query("SELECT COUNT(*) AS jumlah
+    FROM penentuan 
+    WHERE nim = (SELECT id FROM users WHERE nim = '$nim')");
+    $cek1 = $cek[0]['jumlah'] > 0;
 } else {
-    $query = "SELECT * FROM proposal WHERE nim_id = '$nim_id'";
+    // Jika bukan admin atau pembimbing, redirect
+    header('Location: ../template/index.php');
+    exit();
 }
-$result = mysqli_query($conn, $query);
-
-$proposals = [];
-if ($result && mysqli_num_rows($result) > 0) {
-    $proposals = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-$hasProposal = count($proposals) > 0;
 ?>
 
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Proposal</h1>
-        <?php if ($role !== 'Admin' && !$hasProposal): ?>
-        <a href="upload.php" class="btn btn-primary">Upload Proposal</a>
-        <?php endif; ?>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php if (!empty($proposals)): ?>
-                        <?php foreach ($proposals as $pp): ?>
+                    <?php if (!empty($cek1)): ?>
+                        <?php foreach ($penentuan as $row): ?>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="card card-statistic-1">
                                     <div class="card-icon bg-primary">
                                         <i class="fas fa-book"></i>
                                     </div>
                                     <div class="card-wrap">
-                                        <div class="card-header d-flex justify-content-between">
-                                            <a href="../assets/proposals/<?= $pp['proposal_mhs']; ?>" target="_blank">
-                                                Open
-                                            </a>
-                                            <a class="btn btn-sm btn-info mr-10" 
-                                               href="edit_proposal.php?id=<?= ($pp['id']); ?>">
-                                                <i class="fas fa-edit fa-fw"></i>
-                                            </a>
+                                        <div class="card-header">
+                                        <h4 class="mb-2"><?= ($row['mahasiswa_nama']); ?></h4>
                                         </div>
-                                        <div class="card-body">
-                                            <h4><?= ($pp['proposal_mhs']); ?></h4>
-                                            <p><strong>Pengguna:</strong> <?= $pp['nim_id']; ?></p>
+                                        <div class="card-body d-flex justify-content-between">
+                                        <?php if ($row['lap_mhs']): ?>
+                                        <span class="badge badge-success"><a class="text-white"
+                                                href="../assets/proposals/<?= $row['lap_mhs'] ?>" target="_blank">
+                                                Open
+                                            </a></span>
+                                        <?php else: ?>
+                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                            href="upload.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                            <i class="fas fa-upload fa-fw"></i>
+                                        </a>
+                                        <?php endif; ?>
+                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                            href="catatan.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                            <i class="fas fa-edit fa-fw"></i>
+                                        </a>
                                         </div>
                                         <div class="card-footer">
-                                            <p><?= ($pp['catatan']); ?></p>
+                                            <p><?= ($row['catatan']); ?></p>
                                         </div>
                                     </div>
                                 </div>

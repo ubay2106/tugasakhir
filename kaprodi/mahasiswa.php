@@ -46,8 +46,9 @@ $cek1 = $cek[0]['jumlah'] > 0;
 ?>
 
 <section class="section">
-    <div class="section-header">
+    <div class="section-header d-flex justify-content-between">
         <h1>List Mahasiswa</h1>
+        <a href="../kaprodi/expdf.php" class="btn btn-primary"><i class="fas fa-file-pdf"></i>Cetak</a>
     </div>
     <div class="row">
         <div class="col-12">

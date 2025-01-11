@@ -35,9 +35,9 @@ if ($_SESSION['role'] === 'Admin') {
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan");
     $tugas = $cek[0]['jumlah'] > 0;
-} elseif ($_SESSION['role'] === 'Mahasiswa') {
+} elseif ($_SESSION['role'] === 'Kaprodi') {
     // Jika pembimbing, ambil data sesuai nidn yang login
-    $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
+    $nidn = mysqli_real_escape_string($conn, $_SESSION['nidn']);
     $penentuan = query(
         "SELECT 
             penentuan.id AS penentuan_id,
@@ -62,7 +62,7 @@ if ($_SESSION['role'] === 'Admin') {
     );
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan 
-    WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
+    WHERE nidn_id = (SELECT id FROM users WHERE nidn = '$nidn')");
     $tugas = ($cek[0]['jumlah'] > 0);
 } else {
     // Jika bukan admin atau pembimbing, redirect
@@ -75,7 +75,8 @@ if ($_SESSION['role'] === 'Admin') {
 
 <section class="section">
     <div class="section-header d-flex justify-content-between">
-        <h1>Informasi Tugas Akhir</h1>
+        <h1>Jadwal Bimbingan Dan Sidang</h1>
+        <a href="../kaprodi/pdfjad.php" class="btn btn-primary"><i class="fas fa-file-pdf"></i>Cetak</a>
     </div>
     <div class="row">
         <div class="col-12">
@@ -87,6 +88,8 @@ if ($_SESSION['role'] === 'Admin') {
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
+                                    <th>NIM</th>
+                                    <th>Mahasiswa</th>
                                     <th>NIDN Pembimbing</th>
                                     <th>Dosen Pembimbing</th>
                                     <th>Jadwal Bimbingan</th>
@@ -99,6 +102,8 @@ if ($_SESSION['role'] === 'Admin') {
                             <tbody>
                                 <tr class="text-center">
                                     <td><?= $i ?></td>
+                                    <td><?= $row['nim'] ?></td>
+                                    <td><?= $row['mahasiswa_nama'] ?></td>
                                     <td><?= $row['nidn_pembimbing'] ?></td>
                                     <td><?= $row['dosen_pembimbing'] ?></td>
                                     <td>

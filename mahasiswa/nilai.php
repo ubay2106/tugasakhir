@@ -22,9 +22,7 @@ if ($_SESSION['role'] === 'Admin') {
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
             penentuan.nilai_p,
-            penentuan.nilai_s,
-            penentuan.lap_nibim,
-            penentuan.lap_niuji
+            penentuan.nilai_s
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
@@ -34,6 +32,9 @@ if ($_SESSION['role'] === 'Admin') {
         INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
         INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;",
     );
+    $cek = query("SELECT COUNT(*) AS jumlah
+    FROM penentuan");
+    $nilai = $cek[0]['jumlah'] > 0;
 } elseif ($_SESSION['role'] === 'Mahasiswa') {
     $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
     $penentuan = query(
@@ -47,9 +48,7 @@ if ($_SESSION['role'] === 'Admin') {
             users3.nidn AS nidn_penguji,
             dosen2.nama AS dosen_penguji,
             penentuan.nilai_p,
-            penentuan.nilai_s,
-            penentuan.lap_nibim,
-            penentuan.lap_niuji
+            penentuan.nilai_s
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
@@ -63,7 +62,7 @@ if ($_SESSION['role'] === 'Admin') {
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan 
     WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
-$nilai = $cek[0]['jumlah'] > 0;
+    $nilai = $cek[0]['jumlah'] > 0;
 } else {
     // Jika bukan admin atau pembimbing, redirect
     header('Location: ../template/index.php');
@@ -77,7 +76,7 @@ $nilai = $cek[0]['jumlah'] > 0;
         <h1>Nilai</h1>
     </div>
     <div class="car-body">
-    <?php if (!empty($nilai)): ?>
+        <?php if (!empty($nilai)): ?>
         <div class="row">
             <?php foreach ($penentuan as $row): ?>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -87,15 +86,11 @@ $nilai = $cek[0]['jumlah'] > 0;
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Nilai Dan Laporan Proposal</h4>
+                            <h4>Nilai Proposal</h4>
                             <h4><?= $row['mahasiswa_nama'] ?></h4>
                         </div>
                         <div class="card-body d-flex">
                             <div class="mr-5"><?= $row['nilai_p'] ?></div>
-                            <span class="badge badge-success ml-4"><a class="text-white"
-                                    href="../assets/proposals/<?= $row['lap_nibim'] ?>" target="_blank">
-                                    Open
-                                </a></span>
                         </div>
                     </div>
                 </div>
@@ -112,15 +107,11 @@ $nilai = $cek[0]['jumlah'] > 0;
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Nilai Dan Laporan Sidang</h4>
+                            <h4>Nilai Sidang</h4>
                             <h4><?= $row['mahasiswa_nama'] ?></h4>
                         </div>
                         <div class="card-body d-flex">
                             <div class="mr-5"><?= $row['nilai_s'] ?></div>
-                            <span class="badge badge-success ml-4"><a class="text-white"
-                                    href="../assets/proposals/<?= $row['lap_niuji'] ?>" target="_blank">
-                                    Open
-                                </a></span>
                         </div>
                     </div>
                 </div>

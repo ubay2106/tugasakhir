@@ -11,6 +11,9 @@ if(!isset($_SESSION['role'])){
   if ($_SESSION['role'] === 'Admin') {
     // Jika admin, ambil semua data mahasiswa
     $mahasiswa = query("SELECT * FROM mahasiswa INNER JOIN users ON mahasiswa.nim_id = users.id");
+    $cek_tugas_akhir = query("SELECT COUNT(*) AS jumlah, MAX(pengajuan) AS pengajuan 
+    FROM mahasiswa ");
+    $tugas_akhir_sudah_ada = ($cek_tugas_akhir[0]['jumlah'] > 0);
 } else {
     // Jika mahasiswa, ambil hanya data mahasiswa sesuai NIM yang login
     $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
