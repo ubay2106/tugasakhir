@@ -54,7 +54,7 @@ if ($_SESSION['role'] === 'Admin') {
 
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan 
-    WHERE nim = (SELECT id FROM users WHERE nim = '$nim')");
+    WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
     $cek1 = $cek[0]['jumlah'] > 0;
 } else {
     // Jika bukan admin atau pembimbing, redirect
@@ -72,44 +72,44 @@ if ($_SESSION['role'] === 'Admin') {
             <div class="card">
                 <div class="card-body">
                     <?php if (!empty($cek1)): ?>
-                        <?php foreach ($penentuan as $row): ?>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-primary">
-                                        <i class="fas fa-book"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                        <h4 class="mb-2"><?= ($row['mahasiswa_nama']); ?></h4>
-                                        </div>
-                                        <div class="card-body d-flex justify-content-between">
-                                        <?php if ($row['lap_mhs']): ?>
-                                        <span class="badge badge-success"><a class="text-white"
-                                                href="../assets/proposals/<?= $row['lap_mhs'] ?>" target="_blank">
-                                                Open
-                                            </a></span>
-                                        <?php else: ?>
-                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                            href="upload.php?penentuan_id=<?= $row['penentuan_id'] ?>">
-                                            <i class="fas fa-upload fa-fw"></i>
-                                        </a>
-                                        <?php endif; ?>
-                                        <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                            href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">
-                                            <i class="fas fa-edit fa-fw"></i>
-                                        </a>
-                                        </div>
-                                        <div class="card-footer">
-                                            <p><?= ($row['catatan']); ?></p>
-                                        </div>
-                                    </div>
+                    <?php foreach ($penentuan as $row): ?>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="mb-2"><?= $row['mahasiswa_nama'] ?></h4>
+                                </div>
+                                <div class="card-body d-flex justify-content-between">
+                                    <?php if ($row['lap_mhs']): ?>
+                                    <span class="badge badge-success"><a class="text-white"
+                                            href="../assets/proposals/<?= $row['lap_mhs'] ?>" target="_blank">
+                                            Open
+                                        </a></span>
+                                    <?php else: ?>
+                                    <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                        href="upload.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                        <i class="fas fa-upload fa-fw"></i>
+                                    </a>
+                                    <?php endif; ?>
+                                    <a class="btn btn-sm btn-primary mb-md-0 mb-1"
+                                        href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                        <i class="fas fa-edit fa-fw"></i>
+                                    </a>
+                                </div>
+                                <div class="card-footer">
+                                    <p><?= $row['catatan'] ?></p>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="text-center">
-                            <p>Belum ada proposal yang diunggah.</p>
                         </div>
+                    </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <div class="text-center">
+                        <p>Belum ada proposal yang diunggah.</p>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>

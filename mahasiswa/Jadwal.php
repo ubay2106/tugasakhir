@@ -4,11 +4,10 @@ require_once '../layout/top.php';
 require '../database/koneksi.php';
 
 if (!isset($_SESSION['role'])) {
-    header("Location: ../template/index.php");
-    exit;
+    header('Location: ../template/index.php');
+    exit();
 }
 
-// Cek role dari sesi login
 if ($_SESSION['role'] === 'Admin') {
     // Jika admin, ambil semua data penentuan
     $penentuan = query(
@@ -19,24 +18,19 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users2.nidn AS nidn_pembimbing,
             dosen1.nama AS dosen_pembimbing,
-            users3.nidn AS nidn_penguji,
-            dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_bim,
-            penentuan.jadwal_uji
+            penentuan.catatan,
+            penentuan.lap_mhs
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
-        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
-        INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
-        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;"
+        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id;",
     );
     $cek = query("SELECT COUNT(*) AS jumlah
-    FROM penentuan");
-    $tugas = $cek[0]['jumlah'] > 0;
+    FROM penentuan ");
+    $cek1 = $cek[0]['jumlah'] > 0;
 } elseif ($_SESSION['role'] === 'Mahasiswa') {
-    // Jika pembimbing, ambil data sesuai nidn yang login
     $nim = mysqli_real_escape_string($conn, $_SESSION['nim']);
     $penentuan = query(
         "SELECT 
@@ -46,30 +40,26 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users2.nidn AS nidn_pembimbing,
             dosen1.nama AS dosen_pembimbing,
-            users3.nidn AS nidn_penguji,
-            dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_bim,
-            penentuan.jadwal_uji
+            penentuan.catatan,
+            penentuan.lap_mhs
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
         INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
-        INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
-        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id
-        WHERE users1.nim = '$nim';"
+        WHERE users1.nim = '$nim';",
     );
+
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan 
     WHERE nim_id = (SELECT id FROM users WHERE nim = '$nim')");
-    $tugas = ($cek[0]['jumlah'] > 0);
+    $cek1 = $cek[0]['jumlah'] > 0;
 } else {
     // Jika bukan admin atau pembimbing, redirect
-    header("Location: ../template/index.php");
-    exit;
+    header('Location: ../template/index.php');
+    exit();
 }
-
 
 ?>
 
@@ -81,7 +71,7 @@ if ($_SESSION['role'] === 'Admin') {
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                <?php if (!empty($tugas)): ?>
+                    <?php if (!empty($tugas)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
                             <thead>
@@ -102,20 +92,20 @@ if ($_SESSION['role'] === 'Admin') {
                                     <td><?= $row['nidn_pembimbing'] ?></td>
                                     <td><?= $row['dosen_pembimbing'] ?></td>
                                     <td>
-                                    <?php if ($row['jadwal_bim']): ?>
-                                            <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_bim'])) ?></span>
+                                        <?php if ($row['jadwal_bim']): ?>
+                                        <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_bim'])) ?></span>
                                         <?php else: ?>
-                                            <span class="badge ">Pending</span>
+                                        <span class="badge ">Pending</span>
                                         <?php endif; ?>
 
                                     </td>
                                     <td><?= $row['nidn_penguji'] ?></td>
                                     <td><?= $row['dosen_penguji'] ?></td>
                                     <td>
-                                    <?php if ($row['jadwal_uji']): ?>
-                                            <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
+                                        <?php if ($row['jadwal_uji']): ?>
+                                        <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
                                         <?php else: ?>
-                                            <span class="badge ">Pending</span>
+                                        <span class="badge ">Pending</span>
                                         <?php endif; ?>
 
                                     </td>
@@ -124,12 +114,13 @@ if ($_SESSION['role'] === 'Admin') {
                             <?php $i++; endforeach; ?>
                         </table>
                     </div>
-                </div>
-                <?php else: ?>
-                        <div class="text-center">
-                            <p>Data belum tersedia silahkan tunggu</p>
-                        </div>
+
+                    <?php else: ?>
+                    <div class="text-center">
+                        <p>Data belum tersedia silahkan tunggu</p>
+                    </div>
                     <?php endif; ?>
+                </div>
             </div>
         </div>
 </section>
