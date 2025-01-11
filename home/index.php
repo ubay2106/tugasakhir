@@ -7,6 +7,22 @@ if(!isset($_SESSION['role'])){
 }
 
 require_once '../layout/top.php';
+// Panggil file koneksi database
+require_once '../database/koneksi.php';
+require_once '../layout/top.php';
+
+// Query untuk mendapatkan data
+$queryDosen = "SELECT COUNT(*) as total FROM dosen";
+$resultDosen = mysqli_query($conn, $queryDosen);
+$totalDosen = mysqli_fetch_assoc($resultDosen)['total'] ?? 0;
+
+$queryMahasiswa = "SELECT COUNT(*) as total FROM mahasiswa";
+$resultMahasiswa = mysqli_query($conn, $queryMahasiswa);
+$totalMahasiswa = mysqli_fetch_assoc($resultMahasiswa)['total'] ?? 0;
+
+$queryAkun = "SELECT COUNT(*) as total FROM users";
+$resultAkun = mysqli_query($conn, $queryAkun);
+$totalAkun = mysqli_fetch_assoc($resultAkun)['total'] ?? 0;
 ?>
 
 <section class="section">
@@ -25,7 +41,7 @@ require_once '../layout/top.php';
               <h4>Total Dosen</h4>
             </div>
             <div class="card-body">
-              99
+            <?= $totalDosen; ?>
             </div>
           </div>
         </div>
@@ -40,7 +56,7 @@ require_once '../layout/top.php';
               <h4>Total Mahasiswa</h4>
             </div>
             <div class="card-body">
-              99
+           <?= $totalMahasiswa ?>
             </div>
           </div>
         </div>
@@ -55,7 +71,7 @@ require_once '../layout/top.php';
               <h4>Total Akun</h4>
             </div>
             <div class="card-body">
-              99
+            <?= $totalAkun ?>
             </div>
           </div>
         </div>
