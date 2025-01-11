@@ -9,7 +9,7 @@ if (!isset($_SESSION['role'])) {
 }
 
 // Cek role dari sesi login
-if ($_SESSION['role'] === 'Admin') {
+if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Kaprodi') {
     // Jika admin, ambil semua data penentuan
     $penentuan = query(
         "SELECT 
@@ -35,35 +35,6 @@ if ($_SESSION['role'] === 'Admin') {
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan");
     $tugas = $cek[0]['jumlah'] > 0;
-} elseif ($_SESSION['role'] === 'Kaprodi') {
-    // Jika pembimbing, ambil data sesuai nidn yang login
-    $nidn = mysqli_real_escape_string($conn, $_SESSION['nidn']);
-    $penentuan = query(
-        "SELECT 
-            penentuan.id AS penentuan_id,
-            users1.nim AS nim,
-            mahasiswa.nama AS mahasiswa_nama,
-            mahasiswa.judul AS judul,
-            users2.nidn AS nidn_pembimbing,
-            dosen1.nama AS dosen_pembimbing,
-            users3.nidn AS nidn_penguji,
-            dosen2.nama AS dosen_penguji,
-            penentuan.jadwal_bim,
-            penentuan.jadwal_uji
-        FROM 
-            penentuan
-        INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
-        INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
-        INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
-        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
-        INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
-        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id
-        WHERE users1.nim = '$nim';"
-    );
-    $cek = query("SELECT COUNT(*) AS jumlah
-    FROM penentuan 
-    WHERE nidn_id = (SELECT id FROM users WHERE nidn = '$nidn')");
-    $tugas = ($cek[0]['jumlah'] > 0);
 } else {
     // Jika bukan admin atau pembimbing, redirect
     header("Location: ../template/index.php");

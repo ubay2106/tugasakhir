@@ -89,14 +89,11 @@ if ($_SESSION['role'] === 'Admin') {
                                             </a></span>
                                         </div>
                                         <div class="card-footer">
-                                        <?php if ($row['catatan']): ?>
                                         <span><?= ($row['catatan']); ?></span>
-                                        <?php else: ?>
                                         <a class="btn btn-sm btn-primary mb-md-0 mb-1"
                                             href="catatan.php?penentuan_id=<?= $row['penentuan_id'] ?>">Catatan
                                             <i class="fas fa-edit fa-fw"></i>
                                         </a>
-                                        <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
