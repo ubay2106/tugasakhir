@@ -8,13 +8,46 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-$dosen = query('SELECT *FROM dosen
-                    INNER JOIN users ON dosen.nidn_id = users.id
-                    INNER JOIN users AS role_user ON dosen.status = role_user.id;');
+$dosen = query('SELECT 
+                    dosen.nidn_id AS dosen_nidn_id, 
+                    dosen.nama AS dosen_nama, 
+                    dosen.jenis_kelamin AS dosen_jk, 
+                    dosen.id AS dosen_id, 
+                    users.nidn AS nidn, 
+                    role_user.role AS role
+                FROM dosen
+                INNER JOIN users ON dosen.nidn_id = users.id
+                INNER JOIN users AS role_user ON dosen.status = role_user.id;');
+
 
 $cek = query("SELECT COUNT(*) AS jumlah
                 FROM dosen");
 $cek1 = $cek[0]['jumlah'] > 0;
+
+if (isset($_GET['id'])) {
+    $hapus_id = intval($_GET['id']); // Validasi agar ID hanya angka
+
+    // Nonaktifkan foreign key check
+    mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0");
+
+    // Hapus data dari tabel dosen
+    $delete_query = "DELETE FROM dosen WHERE id = '$hapus_id'";
+    if (mysqli_query($conn, $delete_query)) {
+        echo "<script>
+                alert('Data dosen berhasil dihapus');
+                window.location.href = 'dosen.php';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Gagal menghapus data.');
+              </script>";
+    }
+
+    // Aktifkan kembali foreign key check
+    mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=1");
+}
+
+
 ?>
 
 <section class="section">
@@ -44,11 +77,11 @@ $cek1 = $cek[0]['jumlah'] > 0;
                                 <tr class="text-center">
                                     <td><?= $i ?></td>
                                     <td><?= $row['nidn'] ?></td>
-                                    <td><?= $row['nama'] ?></td>
-                                    <td><?= $row['jenis_kelamin'] ?></td>
+                                    <td><?= $row['dosen_nama'] ?></td>
+                                    <td><?= $row['dosen_jk'] ?></td>
                                     <td><?= $row['role'] ?></td>
                                     <td>
-                                        <a class="btn btn-sm btn-danger" href="edit_dosen.php">
+                                        <a class="btn btn-sm btn-danger" href="dosen.php?id=<?= $row['dosen_id'] ?>">
                                             <i class="fas fa-trash fa-fw"></i>
                                         </a>
                                     </td>
