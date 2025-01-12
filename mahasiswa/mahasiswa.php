@@ -82,7 +82,7 @@ if (isset($_GET['id'])) {
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Data Peserta</h1>
-        <?php if ($_SESSION['role'] === 'Admin' || (!$tugas_akhir_sudah_ada || $status_pengajuan == 'ditolak')): ?>
+        <?php if ($_SESSION['role'] === 'Admin' ||!$tugas_akhir_sudah_ada ): ?>
         <a href="../mahasiswa/tambah_mahasiswa.php" class="btn btn-primary">Daftar Tugas Akhir</a>
         <?php endif; ?>
     </div>
