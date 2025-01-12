@@ -120,7 +120,7 @@ $cek1 = $cek[0]['jumlah'] > 0;
 
         <div class="footer">
             <div class="signature">
-                <p>Sumenep, 05 October 2024</p>
+                <p>Sumenep, <?= date('d F Y') ?></p>
                 <p>Mengetahui,</p>
                 <p>Kepala Departemen Informatika</p>
                 <br><br><br>
