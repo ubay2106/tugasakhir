@@ -284,11 +284,7 @@ session_start();
                 <?php if (isset($_SESSION['role'])): ?>
                 <a href="../home/index.php" class="nav-link">Dashboard</a>
                 <?php else: ?>
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
-                <div class="dropdown-menu fade-down m-0">
-                    <a href="../auth/login.php" class="dropdown-item">Login</a>
-                    <a href="../auth/register.php" class="dropdown-item">Register</a>
-                </div>
+                <a href="../auth/login.php" class="nav-link">Admin</a>
                 <?php endif; ?>
             </div>
 

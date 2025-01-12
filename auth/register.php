@@ -2,12 +2,12 @@
 
 session_start();
 
-if (isset($_SESSION['role'])) {
-    header('Location: ../home/index.php');
+require '../database/koneksi.php';
+
+if (!isset($_SESSION['role'])) {
+    header('Location: ../template/index.php');
     exit();
 }
-
-require '../database/koneksi.php';
 
 if (isset($_POST['submit'])) {
     $result = register($_POST);
@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         echo "
             <script>
                 alert('SUKSES');
-                document.location.href = 'login.php';
+                document.location.href = '../template/index.php';
             </script>
         ";
     } elseif ($result === 'nim_terdaftar') {
