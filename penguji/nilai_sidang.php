@@ -49,7 +49,7 @@ if ($_SESSION['role'] === 'Admin') {
     );
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan 
-    WHERE nidn_idbim = (SELECT id FROM users WHERE nidn = '$nidn')");
+    WHERE nidn_iduji = (SELECT id FROM users WHERE nidn = '$nidn')");
     $cek1 = $cek[0]['jumlah'] > 0;
 } else {
     header('Location: ../template/index.php');
