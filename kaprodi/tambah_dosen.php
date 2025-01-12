@@ -67,9 +67,8 @@ if (isset($_POST['submit'])) {
             <label for="status">Status</label>
             <select class="form-control" id="status" name="status" required>
                 <option value="" disabled selected>Pilih Status</option>
-                <?php foreach( $nidn as $row):?>
-                <option value="<?= $row['id'] ?>"><?= $row['role'] ?></option>
-                <?php endforeach; ?>
+                <option value="Pembimbing">Pembimbing</option>
+                <option value="Penguji">Penguji</option>
             </select>
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Simpan</button>

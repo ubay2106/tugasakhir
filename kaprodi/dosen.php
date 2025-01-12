@@ -14,10 +14,9 @@ $dosen = query('SELECT
                     dosen.jenis_kelamin AS dosen_jk, 
                     dosen.id AS dosen_id, 
                     users.nidn AS nidn, 
-                    role_user.role AS role
+                    dosen.status AS status
                 FROM dosen
-                INNER JOIN users ON dosen.nidn_id = users.id
-                INNER JOIN users AS role_user ON dosen.status = role_user.id;');
+                INNER JOIN users ON dosen.nidn_id = users.id');
 
 
 $cek = query("SELECT COUNT(*) AS jumlah
@@ -79,7 +78,7 @@ if (isset($_GET['id'])) {
                                     <td><?= $row['nidn'] ?></td>
                                     <td><?= $row['dosen_nama'] ?></td>
                                     <td><?= $row['dosen_jk'] ?></td>
-                                    <td><?= $row['role'] ?></td>
+                                    <td><?= $row['status'] ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-danger" href="dosen.php?id=<?= $row['dosen_id'] ?>">
                                             <i class="fas fa-trash fa-fw"></i>
