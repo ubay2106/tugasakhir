@@ -32,11 +32,6 @@ if ($_SESSION['role'] === 'Admin') {
     FROM penentuan ");
     $cek1 = $cek[0]['jumlah'] > 0;
 
-    $cekLapMhs = query("SELECT COUNT(*) AS jumlah
-    FROM penentuan
-    WHERE lap_mhs = (SELECT id FROM users WHERE nidn = '$nidn')");
-    $cekLapMhsCount = $cekLapMhs[0]['jumlah'] > 0;
-
 } elseif ($_SESSION['role'] === 'Pembimbing') {
     $nidn = mysqli_real_escape_string($conn, $_SESSION['nidn']);
     $penentuan = query(
@@ -62,11 +57,6 @@ if ($_SESSION['role'] === 'Admin') {
     FROM penentuan 
     WHERE nidn_idbim = (SELECT id FROM users WHERE nidn = '$nidn')");
     $cek1 = $cek[0]['jumlah'] > 0;
-
-    $cekLapMhs = query("SELECT COUNT(*) AS jumlah
-    FROM penentuan
-    WHERE lap_mhs = (SELECT id FROM users WHERE nidn = '$nidn')");
-    $cekLapMhsCount = $cekLapMhs[0]['jumlah'] > 0;
 } else {
     // Jika bukan admin atau pembimbing, redirect
     header('Location: ../template/index.php');
@@ -94,12 +84,14 @@ if ($_SESSION['role'] === 'Admin') {
                                     <h4 class="mb-2"><?= $row['mahasiswa_nama'] ?></h4>
                                 </div>
                                 <div class="card-body">
-                                <?php if (!empty($cekLapMhsCount)): ?>
+                                <?php if ($row['lap_mhs']): ?>
                                     <span class="badge badge-success"><a class="text-white"
                                             href="../assets/proposals/<?= $row['lap_mhs'] ?>" target="_blank">
                                             Open
                                         </a></span>
-                                        <?php endif; ?>
+                                        <?php else: ?>
+                                            <span class="badge badge-success">Pending</span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card-footer">
                                     <span class="d-flex">Catatan : <?= $row['catatan'] ?></span>

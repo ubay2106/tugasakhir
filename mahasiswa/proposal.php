@@ -88,15 +88,10 @@ if ($_SESSION['role'] === 'Admin') {
                                             href="../assets/proposals/<?= $row['lap_mhs'] ?>" target="_blank">
                                             Open
                                         </a></span>
-                                    <?php else: ?>
-                                    <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                        href="upload.php?penentuan_id=<?= $row['penentuan_id'] ?>">
-                                        <i class="fas fa-upload fa-fw"></i>
-                                    </a>
                                     <?php endif; ?>
                                     <a class="btn btn-sm btn-primary mb-md-0 mb-1"
                                         href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">Upload
-                                        <i class="fas fa-edit fa-fw"></i>
+                                        <i class="fas fa-upload fa-fw"></i>
                                     </a>
                                 </div>
                                 <div class="card-footer">
