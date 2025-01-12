@@ -34,7 +34,6 @@ if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Kaprodi') {
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan");
     $tugas = $cek[0]['jumlah'] > 0;
-
 } else {
     // Jika bukan admin atau pembimbing, redirect
     header('Location: ../template/index.php');
@@ -42,105 +41,133 @@ if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Kaprodi') {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarjana Komputer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.css">
+        .container {
+            width: 800px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+        .header {
+            text-align: center;
+        }
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="../assets/modules/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="../assets/modules/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/datatables.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
-    <link rel="stylesheet" href="../assets/modules/izitoast/css/iziToast.min.css">
+        .header img {
+            width: 80px;
+            height: auto;
+        }
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
+        .header h1 {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+
+        .footer .signature {
+            text-align: right;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 
 <body>
-
-    <section class="section">
-        <div class="section-header">
-            <h1>Laporan Jadwal Tugas Akhir</h1>
+    <div class="container">
+        <div class="header">
+            <img src="../assets/img/avatar/sarjana.png" alt="Logo Universitas">
+            <h1>LAPORAN JADWAL</h1>
+            <h2>BIMBINGAN DAN SIDANG</h2>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <?php if (!empty($tugas)): ?>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped w-100" id="table-1" border="1">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>No</th>
-                                        <th>NIM</th>
-                                        <th>Mahasiswa</th>
-                                        <th>NIDN Pembimbing</th>
-                                        <th>Dosen Pembimbing</th>
-                                        <th>Jadwal Bimbingan</th>
-                                        <th>NIDN Penguji</th>
-                                        <th>Dosen Penguji</th>
-                                        <th>Jadwal Sidang</th>
-                                    </tr>
-                                </thead>
-                                <?php $i = 1; foreach ($penentuan as $row): ?>
-                                <tbody>
-                                    <tr class="text-center">
-                                        <td><?= $i ?></td>
-                                        <td><?= $row['nim'] ?></td>
-                                        <td><?= $row['mahasiswa_nama'] ?></td>
-                                        <td><?= $row['nidn_pembimbing'] ?></td>
-                                        <td><?= $row['dosen_pembimbing'] ?></td>
-                                        <td>
-                                            <?php if ($row['jadwal_bim']): ?>
-                                            <span
-                                                class="badge "><?= date('d-m-Y', strtotime($row['jadwal_bim'])) ?></span>
-                                            <?php else: ?>
-                                            <span class="badge ">Pending</span>
-                                            <?php endif; ?>
-
-                                        </td>
-                                        <td><?= $row['nidn_penguji'] ?></td>
-                                        <td><?= $row['dosen_penguji'] ?></td>
-                                        <td>
-                                            <?php if ($row['jadwal_uji']): ?>
-                                            <span
-                                                class="badge "><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
-                                            <?php else: ?>
-                                            <span class="badge ">Pending</span>
-                                            <?php endif; ?>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <?php $i++; endforeach; ?>
-                            </table>
-                        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>NIM</th>
+                    <th>Mahasiswa</th>
+                    <th>NIDN Pembimbing</th>
+                    <th>Dosen Pembimbing</th>
+                    <th>Jadwal Bimbingan</th>
+                    <th>NIDN Penguji</th>
+                    <th>Dosen Penguji</th>
+                    <th>Jadwal Sidang</th>
+                </tr>
+            </thead>
+            <?php foreach ($penentuan as $row): ?>
+            <tbody>
+                <tr class="text-center">
+                    <td><?= $row['nim'] ?></td>
+                    <td><?= $row['mahasiswa_nama'] ?></td>
+                    <td><?= $row['nidn_pembimbing'] ?></td>
+                    <td><?= $row['dosen_pembimbing'] ?></td>
+                    <td>
+                        <?php if ($row['jadwal_bim']): ?>
+                        <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_bim'])) ?></span>
                         <?php else: ?>
-                        <div class="text-center">
-                            <p>Belum ada data</p>
-                        </div>
+                        <span class="badge ">Pending</span>
                         <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-    </section>
 
+                    </td>
+                    <td><?= $row['nidn_penguji'] ?></td>
+                    <td><?= $row['dosen_penguji'] ?></td>
+                    <td>
+                        <?php if ($row['jadwal_uji']): ?>
+                        <span class="badge "><?= date('d-m-Y', strtotime($row['jadwal_uji'])) ?></span>
+                        <?php else: ?>
+                        <span class="badge ">Pending</span>
+                        <?php endif; ?>
+
+                    </td>
+                </tr>
+            </tbody>
+            <?php endforeach; ?>
+        </table>
+
+        <div class="footer">
+            <div class="signature">
+                <p>Sumenep, 05 October 2024</p>
+                <p>Mengetahui,</p>
+                <p>Kepala Departemen Informatika</p>
+                <br><br><br>
+                <p><strong>ZEINOR RAHMAN</strong></p>
+                <p>NIDN: 0706039601</p>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     window.print();
 </script>
+
+</html>

@@ -13,91 +13,125 @@ $cek = query("SELECT COUNT(*) AS jumlah
 $cek1 = $cek[0]['jumlah'] > 0;
 ?>
 
+<!DOCTYPE html>
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarjana Komputer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.css">
+        .container {
+            width: 800px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+        .header {
+            text-align: center;
+        }
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="../assets/modules/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="../assets/modules/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/datatables.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
-    <link rel="stylesheet" href="../assets/modules/izitoast/css/iziToast.min.css">
+        .header img {
+            width: 100px;
+            height: auto;
+        }
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
+        .header h1 {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+
+        .footer .signature {
+            text-align: right;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 
 <body>
-    <section class="section">
-        <div class="section-header">
-            <h1>Laporan Peserta Tugas Akhir</h1>
+    <div class="container">
+        <div class="header">
+            <img src="../assets/img/avatar/sarjana.png" alt="Logo Universitas">
+            <h1>LAPORAN PESERTA</h1>
+            <h2>TUGAS AKHIR</h2>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <?php if (!empty($cek1)): ?>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped w-100" id="table-1" border="1">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>NIM</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Judul</th>
-                                        <th style="width: 150">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <?php $i=1; foreach( $mahasiswa as $row):?>
-                                <tbody>
-                                    <tr class="text-center">
-                                        <td><?= $i ?></td>
-                                        <td><?= $row['nama'] ?></td>
-                                        <td><?= $row['nim'] ?></td>
-                                        <td><?= $row['tanggal_lahir'] ?></td>
-                                        <td><?= $row['jenis_kelamin'] ?></td>
-                                        <td><?= $row['judul'] ?></td>
-                                        <td>
-                                            <?php if ($row['pengajuan'] === 'disetujui'): ?>
-                                            Disetujui
-                                            <?php elseif ($row['pengajuan'] === 'ditolak'): ?>
-                                            Ditolak
-                                            <?php else: ?> ($row['pengajuan'] === 'pending'): ?>
-                                            Pending
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <?php $i++; endforeach; ?>
-                            </table>
-                        </div>
-                        <?php else: ?>
-                        <div class="text-center">
-                            <p>Belum ada data</p>
-                        </div>
+        <table>
+            <thead>
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>NIM</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Judul</th>
+                    <th style="width: 150">Aksi</th>
+                </tr>
+            </thead>
+            <?php $i=1; foreach( $mahasiswa as $row):?>
+            <tbody>
+                <tr class="text-center">
+                    <td><?= $i ?></td>
+                    <td><?= $row['nama'] ?></td>
+                    <td><?= $row['nim'] ?></td>
+                    <td><?= $row['tanggal_lahir'] ?></td>
+                    <td><?= $row['jenis_kelamin'] ?></td>
+                    <td><?= $row['judul'] ?></td>
+                    <td>
+                        <?php if ($row['pengajuan'] === 'disetujui'): ?>
+                        Disetujui
+                        <?php elseif ($row['pengajuan'] === 'ditolak'): ?>
+                        Ditolak
+                        <?php else: ?> ($row['pengajuan'] === 'pending'): ?>
+                        Pending
                         <?php endif; ?>
-                    </div>
-                </div>
+                    </td>
+                </tr>
+            </tbody>
+            <?php $i++; endforeach; ?>
+        </table>
+
+        <div class="footer">
+            <div class="signature">
+                <p>Sumenep, 05 October 2024</p>
+                <p>Mengetahui,</p>
+                <p>Kepala Departemen Informatika</p>
+                <br><br><br>
+                <p><strong>ZEINOR RAHMAN</strong></p>
+                <p>NIDN: 0706039601</p>
             </div>
-    </section>
+        </div>
+    </div>
 </body>
 <script>
     window.print();
 </script>
+
+</html>

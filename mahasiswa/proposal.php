@@ -95,12 +95,12 @@ if ($_SESSION['role'] === 'Admin') {
                                     </a>
                                     <?php endif; ?>
                                     <a class="btn btn-sm btn-primary mb-md-0 mb-1"
-                                        href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">
+                                        href="edit_proposal.php?penentuan_id=<?= $row['penentuan_id'] ?>">Upload
                                         <i class="fas fa-edit fa-fw"></i>
                                     </a>
                                 </div>
                                 <div class="card-footer">
-                                    <p><?= $row['catatan'] ?></p>
+                                    <p>Catatan : <?= $row['catatan'] ?></p>
                                 </div>
                             </div>
                         </div>

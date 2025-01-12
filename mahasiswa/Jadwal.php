@@ -18,14 +18,18 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users2.nidn AS nidn_pembimbing,
             dosen1.nama AS dosen_pembimbing,
-            penentuan.catatan,
-            penentuan.lap_mhs
+            users3.nidn AS nidn_penguji,
+            dosen2.nama AS dosen_penguji,
+            penentuan.jadwal_bim,
+            penentuan.jadwal_uji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
-        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id;",
+        INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
+        INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
+        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id;",
     );
     $cek = query("SELECT COUNT(*) AS jumlah
     FROM penentuan ");
@@ -40,14 +44,18 @@ if ($_SESSION['role'] === 'Admin') {
             mahasiswa.judul AS judul,
             users2.nidn AS nidn_pembimbing,
             dosen1.nama AS dosen_pembimbing,
-            penentuan.catatan,
-            penentuan.lap_mhs
+            users3.nidn AS nidn_penguji,
+            dosen2.nama AS dosen_penguji,
+            penentuan.jadwal_bim,
+            penentuan.jadwal_uji
         FROM 
             penentuan
         INNER JOIN users AS users1 ON penentuan.nim_id = users1.id
         INNER JOIN mahasiswa ON penentuan.mahasiswa_id = mahasiswa.id
         INNER JOIN users AS users2 ON penentuan.nidn_idbim = users2.id
         INNER JOIN dosen AS dosen1 ON penentuan.pembimbing_id = dosen1.id
+        INNER JOIN users AS users3 ON penentuan.nidn_iduji = users3.id
+        INNER JOIN dosen AS dosen2 ON penentuan.penguji_id = dosen2.id
         WHERE users1.nim = '$nim';",
     );
 
@@ -71,7 +79,7 @@ if ($_SESSION['role'] === 'Admin') {
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php if (!empty($tugas)): ?>
+                    <?php if (!empty($cek1)): ?>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped w-100" id="table-1">
                             <thead>

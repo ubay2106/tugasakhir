@@ -78,7 +78,6 @@ if ($_SESSION['role'] === 'Admin') {
                                     <th>NIDN Penguji</th>
                                     <th>Dosen Penguji</th>
                                     <th>Nilai Sidang</th>
-                                    <th>Laporan Nilai</th>
                                 </tr>
                             </thead>
                             <?php $i = 1; foreach ($penentuan as $row): ?>
